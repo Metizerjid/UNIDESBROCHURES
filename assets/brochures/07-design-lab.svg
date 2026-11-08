@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 960">
+  <rect width="720" height="960" fill="#ef6f57"/>
+  <rect x="75" y="110" width="570" height="740" fill="#f8eedb" stroke="#17324d" stroke-width="10"/>
+  <g fill="none" stroke="#17324d" stroke-width="7"><circle cx="360" cy="350" r="150"/><path d="M210 350h300M360 200v300M253 243l214 214M467 243 253 457"/></g>
+  <circle cx="360" cy="350" r="38" fill="#7aa99b"/>
+  <text x="360" y="630" fill="#17324d" font-family="Georgia,serif" font-size="76" text-anchor="middle"><tspan x="360">The</tspan><tspan x="360" dy="78">Design Lab</tspan></text>
+  <text x="360" y="70" fill="#fff7e9" font-family="Arial,sans-serif" font-size="18" font-weight="700" letter-spacing="4" text-anchor="middle">PLACEHOLDER COVER • CLASS 03</text>
+  <text x="360" y="905" fill="#17324d" font-family="Arial,sans-serif" font-size="17" font-weight="700" letter-spacing="3" text-anchor="middle">REPLACE WITH YOUR ARTWORK</text>
+</svg>

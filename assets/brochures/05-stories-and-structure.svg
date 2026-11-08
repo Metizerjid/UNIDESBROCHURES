@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 960">
+  <rect width="720" height="960" fill="#efe4cd"/>
+  <path d="M0 0h720v225H0z" fill="#e96751"/><path d="M0 735h720v225H0z" fill="#17324d"/>
+  <g fill="none" stroke="#17324d" stroke-width="10"><rect x="120" y="285" width="480" height="390"/><rect x="174" y="335" width="372" height="290"/></g>
+  <path d="m218 578 142-188 142 188" fill="#75aaa0" stroke="#17324d" stroke-width="9"/>
+  <text x="360" y="80" fill="#fff8eb" font-family="Arial,sans-serif" font-size="18" font-weight="700" letter-spacing="4" text-anchor="middle">PLACEHOLDER COVER • CLASS 02</text>
+  <text x="360" y="450" fill="#17324d" font-family="Georgia,serif" font-size="67" text-anchor="middle"><tspan x="360">Stories &amp;</tspan><tspan x="360" dy="72">Structure</tspan></text>
+  <text x="360" y="850" fill="#fff8eb" font-family="Arial,sans-serif" font-size="18" font-weight="700" letter-spacing="3" text-anchor="middle">REPLACE WITH YOUR ARTWORK</text>
+</svg>

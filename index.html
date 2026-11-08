@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A responsive, swipeable gallery for twelve brochures across four classes."
+    />
+    <meta name="theme-color" content="#17324d" />
+    <title>The Brochure Room</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#gallery">Skip to brochure gallery</a>
+
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="The Brochure Room, home">
+        <span class="brand-mark" aria-hidden="true">B</span>
+        <span>
+          <strong>The Brochure Room</strong>
+          <small>Twelve ideas, ready to explore</small>
+        </span>
+      </a>
+
+      <nav class="class-nav" aria-label="Browse classes">
+        <a href="#class-one">Class 01</a>
+        <a href="#class-two">Class 02</a>
+        <a href="#class-three">Class 03</a>
+        <a href="#class-four">Class 04</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">A curated learning collection</p>
+          <h1 id="hero-title">Every brochure opens a different door.</h1>
+          <p class="hero-intro">
+            Explore four classes and twelve distinct brochures. Each visit begins
+            with a fresh arrangement—swipe, drag, or use the arrows to keep
+            discovering.
+          </p>
+
+          <div class="hero-actions">
+            <a class="button button-primary" href="#gallery">Explore the collection</a>
+            <button class="button button-secondary" id="shuffle-all" type="button">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5" />
+              </svg>
+              Shuffle brochures
+            </button>
+          </div>
+
+          <div class="hero-note">
+            <span class="pulse-dot" aria-hidden="true"></span>
+            <span>Order is refreshed for every page load</span>
+          </div>
+        </div>
+
+        <div class="hero-art" aria-label="A preview stack of brochure covers">
+          <div class="cover-card cover-card-back">
+            <img src="assets/brochures/03-our-shared-world.svg" alt="" />
+          </div>
+          <div class="cover-card cover-card-middle">
+            <img src="assets/brochures/02-first-readers.svg" alt="" />
+          </div>
+          <div class="cover-card cover-card-front">
+            <img src="assets/brochures/01-numbers-in-nature.svg" alt="Numbers in Nature brochure placeholder" />
+          </div>
+          <div class="hero-stamp" aria-hidden="true">
+            <strong>12</strong>
+            <span>brochures</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="gallery-intro" id="gallery" aria-labelledby="gallery-title">
+        <div>
+          <p class="eyebrow">The full collection</p>
+          <h2 id="gallery-title">Four classes. Three perspectives each.</h2>
+        </div>
+        <p>
+          On desktop, every class shows all three brochures side by side. On
+          smaller screens, swipe through one at a time. The first brochure in
+          each row changes from visit to visit.
+        </p>
+      </section>
+
+      <div class="gallery-sections">
+        <section class="class-section" id="class-one" data-carousel="class-one" aria-labelledby="class-one-title">
+          <div class="section-heading">
+            <div class="class-label">
+              <span>01</span>
+              <div>
+                <p class="eyebrow">Start with wonder</p>
+                <h2 id="class-one-title">Class One</h2>
+              </div>
+            </div>
+            <div class="carousel-controls" aria-label="Class One carousel controls">
+              <span class="carousel-status" aria-live="polite"></span>
+              <button class="arrow-button previous" type="button" aria-label="Show previous Class One brochure">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
+              </button>
+              <button class="arrow-button next" type="button" aria-label="Show next Class One brochure">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
+              </button>
+            </div>
+          </div>
+          <div class="carousel-viewport" tabindex="0" aria-label="Class One brochures. Use left and right arrow keys to browse.">
+            <div class="carousel-track"></div>
+          </div>
+          <div class="carousel-footer">
+            <div class="carousel-dots" aria-label="Choose a Class One lead brochure"></div>
+            <span class="swipe-hint"><span aria-hidden="true">↔</span> Swipe or drag to browse</span>
+          </div>
+        </section>
+
+        <section class="class-section" id="class-two" data-carousel="class-two" aria-labelledby="class-two-title">
+          <div class="section-heading">
+            <div class="class-label">
+              <span>02</span>
+              <div>
+                <p class="eyebrow">Look a little closer</p>
+                <h2 id="class-two-title">Class Two</h2>
+              </div>
+            </div>
+            <div class="carousel-controls" aria-label="Class Two carousel controls">
+              <span class="carousel-status" aria-live="polite"></span>
+              <button class="arrow-button previous" type="button" aria-label="Show previous Class Two brochure">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
+              </button>
+              <button class="arrow-button next" type="button" aria-label="Show next Class Two brochure">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
+              </button>
+            </div>
+          </div>
+          <div class="carousel-viewport" tabindex="0" aria-label="Class Two brochures. Use left and right arrow keys to browse.">
+            <div class="carousel-track"></div>
+          </div>
+          <div class="carousel-footer">
+            <div class="carousel-dots" aria-label="Choose a Class Two lead brochure"></div>
+            <span class="swipe-hint"><span aria-hidden="true">↔</span> Swipe or drag to browse</span>
+          </div>
+        </section>
+
+        <section class="class-section" id="class-three" data-carousel="class-three" aria-labelledby="class-three-title">
+          <div class="section-heading">
+            <div class="class-label">
+              <span>03</span>
+              <div>
+                <p class="eyebrow">Connect the ideas</p>
+                <h2 id="class-three-title">Class Three</h2>
+              </div>
+            </div>
+            <div class="carousel-controls" aria-label="Class Three carousel controls">
+              <span class="carousel-status" aria-live="polite"></span>
+              <button class="arrow-button previous" type="button" aria-label="Show previous Class Three brochure">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
+              </button>
+              <button class="arrow-button next" type="button" aria-label="Show next Class Three brochure">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
+              </button>
+            </div>
+          </div>
+          <div class="carousel-viewport" tabindex="0" aria-label="Class Three brochures. Use left and right arrow keys to browse.">
+            <div class="carousel-track"></div>
+          </div>
+          <div class="carousel-footer">
+            <div class="carousel-dots" aria-label="Choose a Class Three lead brochure"></div>
+            <span class="swipe-hint"><span aria-hidden="true">↔</span> Swipe or drag to browse</span>
+          </div>
+        </section>
+
+        <section class="class-section" id="class-four" data-carousel="class-four" aria-labelledby="class-four-title">
+          <div class="section-heading">
+            <div class="class-label">
+              <span>04</span>
+              <div>
+                <p class="eyebrow">Shape what comes next</p>
+                <h2 id="class-four-title">Class Four</h2>
+              </div>
+            </div>
+            <div class="carousel-controls" aria-label="Class Four carousel controls">
+              <span class="carousel-status" aria-live="polite"></span>
+              <button class="arrow-button previous" type="button" aria-label="Show previous Class Four brochure">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
+              </button>
+              <button class="arrow-button next" type="button" aria-label="Show next Class Four brochure">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
+              </button>
+            </div>
+          </div>
+          <div class="carousel-viewport" tabindex="0" aria-label="Class Four brochures. Use left and right arrow keys to browse.">
+            <div class="carousel-track"></div>
+          </div>
+          <div class="carousel-footer">
+            <div class="carousel-dots" aria-label="Choose a Class Four lead brochure"></div>
+            <span class="swipe-hint"><span aria-hidden="true">↔</span> Swipe or drag to browse</span>
+          </div>
+        </section>
+      </div>
+
+      <section class="closing-panel" aria-labelledby="closing-title">
+        <p class="eyebrow">Make the collection yours</p>
+        <h2 id="closing-title">Replace the sample covers. Add your PDFs. Publish.</h2>
+        <p>
+          The gallery is intentionally simple to update: every brochure lives in
+          one clearly marked list in <code>script.js</code>, with separate image
+          and PDF fields.
+        </p>
+        <a class="button button-light" href="README.md">Read the customization guide</a>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <a class="brand footer-brand" href="#top">
+        <span class="brand-mark" aria-hidden="true">B</span>
+        <strong>The Brochure Room</strong>
+      </a>
+      <p>Built as a responsive, accessible static site.</p>
+      <a href="#top">Back to top ↑</a>
+    </footer>
+
+    <template id="brochure-card-template">
+      <article class="brochure-card">
+        <div class="brochure-image-wrap">
+          <img class="brochure-image" alt="" draggable="false" />
+          <span class="brochure-number"></span>
+          <span class="placeholder-tag">Replace image</span>
+        </div>
+        <div class="brochure-content">
+          <div>
+            <p class="brochure-kicker"></p>
+            <h3 class="brochure-title"></h3>
+            <p class="brochure-description"></p>
+          </div>
+          <div class="brochure-meta">
+            <span class="brochure-format">PDF · sample</span>
+            <span class="brochure-pages"></span>
+          </div>
+          <div class="brochure-action"></div>
+        </div>
+      </article>
+    </template>
+  </body>
+</html>
