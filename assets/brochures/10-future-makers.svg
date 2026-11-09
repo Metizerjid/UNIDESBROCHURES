@@ -1,9 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 960">
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="960" viewBox="0 0 720 960">
   <rect width="720" height="960" fill="#152d40"/>
   <path d="M0 780 720 90v870H0Z" fill="#e96b53"/>
   <path d="M0 610 580 0h140L0 745Z" fill="#b9e0df"/>
   <g fill="#fff5df"><rect x="90" y="165" width="90" height="90"/><circle cx="585" cy="650" r="60"/><path d="m160 810 55-95 55 95Z"/></g>
-  <text x="64" y="70" fill="#fff5df" font-family="Arial,sans-serif" font-size="18" font-weight="700" letter-spacing="4">PLACEHOLDER COVER • CLASS 04</text>
+  <text x="64" y="70" fill="#fff5df" font-family="Arial,sans-serif" font-size="18" font-weight="700" letter-spacing="4">PLACEHOLDER POSTER • 10</text>
   <text x="70" y="430" fill="#152d40" font-family="Georgia,serif" font-size="82"><tspan x="70">Future</tspan><tspan x="70" dy="84">Makers</tspan></text>
   <text x="360" y="910" fill="#fff5df" font-family="Arial,sans-serif" font-size="17" font-weight="700" letter-spacing="3" text-anchor="middle">REPLACE WITH YOUR ARTWORK</text>
 </svg>

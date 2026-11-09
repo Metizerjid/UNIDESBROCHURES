@@ -1,9 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 960">
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="960" viewBox="0 0 720 960">
   <rect width="720" height="960" fill="#cee6df"/>
   <circle cx="360" cy="460" r="278" fill="#17324d"/>
   <path d="M360 182c120 75 165 156 120 245-45 88-20 170 90 240-52 47-128 71-210 71-154 0-278-124-278-278 0-151 121-275 272-278Z" fill="#6dab83"/>
   <path d="m365 235-76 190h87l-44 255 121-300h-93Z" fill="#f5bd5a" stroke="#fff4df" stroke-width="8" stroke-linejoin="round"/>
-  <text x="360" y="72" fill="#17324d" font-family="Arial,sans-serif" font-size="18" font-weight="700" letter-spacing="4" text-anchor="middle">PLACEHOLDER COVER • CLASS 04</text>
+  <text x="360" y="72" fill="#17324d" font-family="Arial,sans-serif" font-size="18" font-weight="700" letter-spacing="4" text-anchor="middle">PLACEHOLDER POSTER • 11</text>
   <rect x="92" y="406" width="536" height="125" rx="62" fill="#fff4df"/>
   <text x="360" y="485" fill="#17324d" font-family="Georgia,serif" font-size="60" text-anchor="middle">Earth &amp; Energy</text>
   <text x="360" y="910" fill="#17324d" font-family="Arial,sans-serif" font-size="17" font-weight="700" letter-spacing="3" text-anchor="middle">REPLACE WITH YOUR ARTWORK</text>

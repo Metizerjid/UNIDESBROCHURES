@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 960">
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="960" viewBox="0 0 720 960">
   <rect width="720" height="960" fill="#e6d6b9"/>
   <path d="M80 90h560v780H80z" fill="#f8f0df" stroke="#17324d" stroke-width="8"/>
   <g stroke="#c7b89c" stroke-width="3"><path d="M140 220h440M140 270h440M140 320h440M140 370h440M140 420h440M140 470h440M140 520h440M140 570h440M140 620h440M140 670h440"/></g>
   <path d="M200 655c105-130 230-260 345-390" fill="none" stroke="#ec6c54" stroke-width="24" stroke-linecap="round"/>
   <circle cx="210" cy="640" r="52" fill="#17324d"/>
   <text x="360" y="430" fill="#17324d" font-family="Georgia,serif" font-size="70" text-anchor="middle"><tspan x="360">Voices in</tspan><tspan x="360" dy="74">History</tspan></text>
-  <text x="360" y="145" fill="#17324d" font-family="Arial,sans-serif" font-size="17" font-weight="700" letter-spacing="4" text-anchor="middle">PLACEHOLDER COVER • CLASS 03</text>
+  <text x="360" y="145" fill="#17324d" font-family="Arial,sans-serif" font-size="17" font-weight="700" letter-spacing="4" text-anchor="middle">PLACEHOLDER POSTER • 09</text>
   <text x="360" y="925" fill="#17324d" font-family="Arial,sans-serif" font-size="17" font-weight="700" letter-spacing="3" text-anchor="middle">REPLACE WITH YOUR ARTWORK</text>
 </svg>

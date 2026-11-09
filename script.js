@@ -1,11 +1,14 @@
 // -----------------------------------------------------------------------------
-// BROCHURE CONTENT
-// Edit this one list to change titles, descriptions, cover images, and PDFs.
-// To activate a PDF button, add the file inside assets/pdfs/ and set `pdf` to
-// that relative path, for example: "assets/pdfs/numbers-in-nature.pdf".
+// POSTER DATA
+// Add your public API endpoint to POSTER_API_URL when it is ready. The endpoint
+// may return either an array or { posters: [...] }. Each poster needs an image
+// URL in `image`, `imageUrl`, `url`, or `src`; `title` is optional.
+// Leave the URL empty to use the local sample posters below.
 // -----------------------------------------------------------------------------
 
-const brochureClasses = {
+const POSTER_API_URL = "";
+
+const localPosterGroups = {
   "class-one": [
     {
       id: "01",
@@ -124,8 +127,24 @@ const brochureClasses = {
   ],
 };
 
-const carouselStates = new Map();
-const cardTemplate = document.querySelector("#brochure-card-template");
+const elements = {
+  stage: document.querySelector("#poster-stage"),
+  frame: document.querySelector(".poster-frame"),
+  image: document.querySelector("#poster-image"),
+  title: document.querySelector("#poster-title"),
+  counter: document.querySelector("#poster-counter"),
+  dots: document.querySelector("#poster-dots"),
+  loading: document.querySelector("#loading-state"),
+  previous: document.querySelector(".previous"),
+  next: document.querySelector(".next"),
+};
+
+const state = {
+  posters: [],
+  index: 0,
+  dragStartX: null,
+  pointerId: null,
+};
 
 function randomIndex(max) {
   if (window.crypto?.getRandomValues) {
@@ -146,155 +165,156 @@ function shuffle(items) {
   return shuffled;
 }
 
-function rotate(items, offset) {
-  const safeOffset = ((offset % items.length) + items.length) % items.length;
-  return [...items.slice(safeOffset), ...items.slice(0, safeOffset)];
+function normalizePoster(item, index) {
+  const image = item?.image || item?.imageUrl || item?.url || item?.src;
+  if (!image) return null;
+
+  return {
+    id: String(item.id ?? index + 1),
+    title: item.title || item.name || `Poster ${index + 1}`,
+    image,
+  };
 }
 
-function buildCard(brochure) {
-  const card = cardTemplate.content.firstElementChild.cloneNode(true);
-  const image = card.querySelector(".brochure-image");
-  const action = card.querySelector(".brochure-action");
+async function loadPosters() {
+  if (POSTER_API_URL) {
+    try {
+      const response = await fetch(POSTER_API_URL, { cache: "no-store" });
+      if (!response.ok) throw new Error(`Poster API returned ${response.status}`);
+      const payload = await response.json();
+      const records = Array.isArray(payload) ? payload : payload.posters;
+      if (!Array.isArray(records)) throw new Error("Poster API response must contain a posters array");
 
-  image.src = brochure.image;
-  image.alt = `${brochure.title} poster placeholder`;
-  card.querySelector(".brochure-number").textContent = brochure.id;
-  card.querySelector(".brochure-kicker").textContent = brochure.kicker;
-  card.querySelector(".brochure-title").textContent = brochure.title;
-  card.querySelector(".brochure-description").textContent = brochure.description;
-  card.querySelector(".brochure-pages").textContent = brochure.pages;
-
-  if (brochure.pdf) {
-    const link = document.createElement("a");
-    link.className = "brochure-link";
-    link.href = brochure.pdf;
-    link.target = "_blank";
-    link.rel = "noopener";
-    link.textContent = "Open poster PDF";
-    link.setAttribute("aria-label", `Open ${brochure.title} poster PDF in a new tab`);
-    action.append(link);
-  } else {
-    const placeholder = document.createElement("span");
-    placeholder.className = "brochure-link-disabled";
-    placeholder.textContent = "Optional PDF not added";
-    placeholder.title = "Optionally add a PDF path for this poster in script.js";
-    action.append(placeholder);
+      const posters = records.map(normalizePoster).filter(Boolean);
+      if (posters.length === 0) throw new Error("Poster API returned no usable image URLs");
+      return posters;
+    } catch (error) {
+      console.warn("Poster API could not be loaded; using local fallback posters.", error);
+    }
   }
 
-  return card;
+  return Object.values(localPosterGroups).flat().map(normalizePoster).filter(Boolean);
 }
 
-function renderCarousel(section, direction = "") {
-  const key = section.dataset.carousel;
-  const state = carouselStates.get(key);
-  const orderedItems = rotate(state.items, state.offset);
-  const track = section.querySelector(".carousel-track");
-  const status = section.querySelector(".carousel-status");
-  const dots = section.querySelector(".carousel-dots");
-
-  // Only the active poster is rendered. The other two stay in state and become
-  // available when the visitor uses an arrow, keyboard, swipe, or drag control.
-  track.replaceChildren(buildCard(orderedItems[0]));
-  track.className = `carousel-track${direction ? ` is-${direction}` : ""}`;
-  status.textContent = `Poster ${state.offset + 1} of ${state.items.length}`;
-
-  dots.replaceChildren(
-    ...state.items.map((item, index) => {
+function buildDots() {
+  elements.dots.replaceChildren(
+    ...state.posters.map((poster, index) => {
       const dot = document.createElement("button");
-      dot.className = "carousel-dot";
+      dot.className = "poster-dot";
       dot.type = "button";
-      dot.textContent = `Show ${item.title} poster`;
-      dot.setAttribute("aria-current", String(index === state.offset));
-      dot.addEventListener("click", () => {
-        const previousOffset = state.offset;
-        state.offset = index;
-        renderCarousel(section, index >= previousOffset ? "next" : "previous");
-      });
+      dot.textContent = `Show ${poster.title}`;
+      dot.setAttribute("aria-current", String(index === state.index));
+      dot.addEventListener("click", () => goToPoster(index));
       return dot;
     }),
   );
 }
 
-function shiftCarousel(section, amount) {
-  const state = carouselStates.get(section.dataset.carousel);
-  state.offset = (state.offset + amount + state.items.length) % state.items.length;
-  renderCarousel(section, amount > 0 ? "next" : "previous");
+function finishImageLoad() {
+  elements.image.classList.remove("is-loading");
+  elements.loading.hidden = true;
 }
 
-function addDragControls(section) {
-  const viewport = section.querySelector(".carousel-viewport");
-  let startX = null;
-  let pointerId = null;
+function preloadNeighborPosters() {
+  if (state.posters.length < 2) return;
+  const previousIndex = (state.index - 1 + state.posters.length) % state.posters.length;
+  const nextIndex = (state.index + 1) % state.posters.length;
+  [previousIndex, nextIndex].forEach((index) => {
+    const preload = new Image();
+    preload.src = state.posters[index].image;
+  });
+}
 
-  viewport.addEventListener("pointerdown", (event) => {
-    if (event.button !== 0) return;
-    startX = event.clientX;
-    pointerId = event.pointerId;
-    viewport.classList.add("is-dragging");
-    viewport.setPointerCapture(pointerId);
+function renderPoster(direction = "") {
+  const poster = state.posters[state.index];
+  if (!poster) return;
+
+  elements.frame.className = `poster-frame${direction ? ` is-${direction}` : ""}`;
+  elements.image.classList.add("is-loading");
+  elements.loading.hidden = false;
+  elements.loading.textContent = "Loading poster…";
+  elements.title.textContent = poster.title;
+  elements.counter.textContent = `${state.index + 1} / ${state.posters.length}`;
+  elements.image.alt = poster.title;
+  elements.image.onload = finishImageLoad;
+  elements.image.onerror = () => {
+    elements.loading.hidden = false;
+    elements.loading.textContent = "Poster image could not be loaded";
+  };
+  elements.image.src = poster.image;
+
+  if (elements.image.complete && elements.image.naturalWidth > 0) finishImageLoad();
+  buildDots();
+  preloadNeighborPosters();
+}
+
+function shiftPoster(amount) {
+  if (state.posters.length < 2) return;
+  state.index = (state.index + amount + state.posters.length) % state.posters.length;
+  renderPoster(amount > 0 ? "next" : "previous");
+}
+
+function goToPoster(index) {
+  if (index === state.index) return;
+  const direction = index > state.index ? "next" : "previous";
+  state.index = index;
+  renderPoster(direction);
+}
+
+function handleKeydown(event) {
+  if (event.key === "ArrowRight") {
+    event.preventDefault();
+    shiftPoster(1);
+  } else if (event.key === "ArrowLeft") {
+    event.preventDefault();
+    shiftPoster(-1);
+  }
+}
+
+function addInteractions() {
+  elements.previous.addEventListener("click", () => shiftPoster(-1));
+  elements.next.addEventListener("click", () => shiftPoster(1));
+  document.addEventListener("keydown", handleKeydown);
+
+  elements.stage.addEventListener("pointerdown", (event) => {
+    if (event.button !== 0 || event.target.closest("button")) return;
+    state.dragStartX = event.clientX;
+    state.pointerId = event.pointerId;
+    elements.stage.classList.add("is-dragging");
+    elements.stage.setPointerCapture(event.pointerId);
   });
 
-  viewport.addEventListener("pointerup", (event) => {
-    if (startX === null) return;
-    const distance = event.clientX - startX;
-    viewport.classList.remove("is-dragging");
-    if (viewport.hasPointerCapture(pointerId)) viewport.releasePointerCapture(pointerId);
-    startX = null;
-    pointerId = null;
-
-    if (Math.abs(distance) >= 42) {
-      shiftCarousel(section, distance < 0 ? 1 : -1);
+  elements.stage.addEventListener("pointerup", (event) => {
+    if (state.dragStartX === null) return;
+    const distance = event.clientX - state.dragStartX;
+    elements.stage.classList.remove("is-dragging");
+    if (elements.stage.hasPointerCapture(state.pointerId)) {
+      elements.stage.releasePointerCapture(state.pointerId);
     }
+    state.dragStartX = null;
+    state.pointerId = null;
+
+    if (Math.abs(distance) >= 42) shiftPoster(distance < 0 ? 1 : -1);
   });
 
-  viewport.addEventListener("pointercancel", () => {
-    startX = null;
-    pointerId = null;
-    viewport.classList.remove("is-dragging");
-  });
-
-  viewport.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowRight") {
-      event.preventDefault();
-      shiftCarousel(section, 1);
-    }
-    if (event.key === "ArrowLeft") {
-      event.preventDefault();
-      shiftCarousel(section, -1);
-    }
+  elements.stage.addEventListener("pointercancel", () => {
+    state.dragStartX = null;
+    state.pointerId = null;
+    elements.stage.classList.remove("is-dragging");
   });
 }
 
-function initializeCarousels() {
-  document.querySelectorAll("[data-carousel]").forEach((section) => {
-    const key = section.dataset.carousel;
-    carouselStates.set(key, {
-      items: shuffle(brochureClasses[key]),
-      offset: 0,
-    });
+async function initialize() {
+  addInteractions();
+  state.posters = shuffle(await loadPosters());
 
-    section.querySelector(".previous").addEventListener("click", () => shiftCarousel(section, -1));
-    section.querySelector(".next").addEventListener("click", () => shiftCarousel(section, 1));
-    addDragControls(section);
-    renderCarousel(section);
-  });
+  if (state.posters.length === 0) {
+    elements.loading.textContent = "No posters are available";
+    elements.counter.textContent = "0 / 0";
+    return;
+  }
+
+  renderPoster();
 }
 
-function shuffleAllCarousels() {
-  document.querySelectorAll("[data-carousel]").forEach((section) => {
-    const state = carouselStates.get(section.dataset.carousel);
-    state.items = shuffle(state.items);
-    state.offset = 0;
-    renderCarousel(section, "next");
-  });
-
-  const shuffleButton = document.querySelector("#shuffle-all");
-  const originalLabel = shuffleButton.lastChild.textContent;
-  shuffleButton.lastChild.textContent = " Shuffled!";
-  window.setTimeout(() => {
-    shuffleButton.lastChild.textContent = originalLabel;
-  }, 1200);
-}
-
-initializeCarousels();
-document.querySelector("#shuffle-all").addEventListener("click", shuffleAllCarousels);
+initialize();

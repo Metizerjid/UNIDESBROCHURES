@@ -5,245 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="A responsive, swipeable gallery for twelve brochures across four classes."
+      content="A simple, full-screen poster gallery with swipe and arrow navigation."
     />
-    <meta name="theme-color" content="#17324d" />
-    <title>The Brochure Room</title>
+    <meta name="theme-color" content="#102838" />
+    <title>The Poster Room</title>
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="styles.css" />
     <script src="script.js" defer></script>
   </head>
   <body>
-    <a class="skip-link" href="#gallery">Skip to brochure gallery</a>
+    <main class="viewer" aria-label="Poster gallery">
+      <header class="viewer-header">
+        <a class="brand" href="./" aria-label="The Poster Room, reload with a random poster">
+          <span class="brand-mark" aria-hidden="true">P</span>
+          <span>
+            <strong>The Poster Room</strong>
+            <small>Swipe to explore</small>
+          </span>
+        </a>
 
-    <header class="site-header">
-      <a class="brand" href="#top" aria-label="The Brochure Room, home">
-        <span class="brand-mark" aria-hidden="true">B</span>
-        <span>
-          <strong>The Brochure Room</strong>
-          <small>Twelve posters, ready to explore</small>
-        </span>
-      </a>
-
-      <nav class="class-nav" aria-label="Browse classes">
-        <a href="#class-one">Class 01</a>
-        <a href="#class-two">Class 02</a>
-        <a href="#class-three">Class 03</a>
-        <a href="#class-four">Class 04</a>
-      </nav>
-    </header>
-
-    <main id="top">
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-copy">
-          <p class="eyebrow">A curated poster collection</p>
-          <h1 id="hero-title">Every poster opens a different door.</h1>
-          <p class="hero-intro">
-            Explore four classes and twelve distinct posters. Each class begins
-            with one randomly selected poster—swipe, drag, or use the arrows to
-            see the rest.
-          </p>
-
-          <div class="hero-actions">
-            <a class="button button-primary" href="#gallery">Explore the collection</a>
-            <button class="button button-secondary" id="shuffle-all" type="button">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5" />
-              </svg>
-              Shuffle posters
-            </button>
-          </div>
-
-          <div class="hero-note">
-            <span class="pulse-dot" aria-hidden="true"></span>
-            <span>One random poster per class on every page load</span>
-          </div>
-        </div>
-
-        <div class="hero-art" aria-label="A preview stack of poster designs">
-          <div class="cover-card cover-card-back">
-            <img src="assets/brochures/03-our-shared-world.svg" alt="" />
-          </div>
-          <div class="cover-card cover-card-middle">
-            <img src="assets/brochures/02-first-readers.svg" alt="" />
-          </div>
-          <div class="cover-card cover-card-front">
-            <img src="assets/brochures/01-numbers-in-nature.svg" alt="Numbers in Nature poster placeholder" />
-          </div>
-          <div class="hero-stamp" aria-hidden="true">
-            <strong>12</strong>
-            <span>posters</span>
-          </div>
-        </div>
-      </section>
-
-      <section class="gallery-intro" id="gallery" aria-labelledby="gallery-title">
-        <div>
-          <p class="eyebrow">The full collection</p>
-          <h2 id="gallery-title">Four classes. One poster at a time.</h2>
-        </div>
-        <p>
-          Every class contains three posters, but only one is displayed at a
-          time. The first poster changes on every visit; use the arrows or swipe
-          left and right to view the other two.
+        <p class="random-note">
+          <span aria-hidden="true"></span>
+          Random start
         </p>
+      </header>
+
+      <section
+        class="poster-stage"
+        id="poster-stage"
+        tabindex="0"
+        aria-roledescription="carousel"
+        aria-label="Posters. Use the left and right arrow keys to browse."
+      >
+        <button class="nav-button previous" type="button" aria-label="Show previous poster">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m15 18-6-6 6-6" />
+          </svg>
+        </button>
+
+        <figure class="poster-frame" aria-live="polite">
+          <div class="poster-canvas">
+            <img id="poster-image" alt="" draggable="false" />
+            <div class="loading-state" id="loading-state">Loading posters…</div>
+          </div>
+          <figcaption class="poster-caption">
+            <span id="poster-title">Poster</span>
+          </figcaption>
+        </figure>
+
+        <button class="nav-button next" type="button" aria-label="Show next poster">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+        </button>
       </section>
 
-      <div class="gallery-sections">
-        <section class="class-section" id="class-one" data-carousel="class-one" aria-labelledby="class-one-title">
-          <div class="section-heading">
-            <div class="class-label">
-              <span>01</span>
-              <div>
-                <p class="eyebrow">Start with wonder</p>
-                <h2 id="class-one-title">Class One</h2>
-              </div>
-            </div>
-            <div class="carousel-controls" aria-label="Class One poster controls">
-              <span class="carousel-status" aria-live="polite"></span>
-              <button class="arrow-button previous" type="button" aria-label="Show previous Class One poster">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
-              </button>
-              <button class="arrow-button next" type="button" aria-label="Show next Class One poster">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
-              </button>
-            </div>
-          </div>
-          <div class="carousel-viewport" tabindex="0" aria-label="Class One posters. Use left and right arrow keys to browse.">
-            <div class="carousel-track"></div>
-          </div>
-          <div class="carousel-footer">
-            <div class="carousel-dots" aria-label="Choose a Class One poster"></div>
-            <span class="swipe-hint"><span aria-hidden="true">↔</span> Swipe or drag to browse</span>
-          </div>
-        </section>
-
-        <section class="class-section" id="class-two" data-carousel="class-two" aria-labelledby="class-two-title">
-          <div class="section-heading">
-            <div class="class-label">
-              <span>02</span>
-              <div>
-                <p class="eyebrow">Look a little closer</p>
-                <h2 id="class-two-title">Class Two</h2>
-              </div>
-            </div>
-            <div class="carousel-controls" aria-label="Class Two poster controls">
-              <span class="carousel-status" aria-live="polite"></span>
-              <button class="arrow-button previous" type="button" aria-label="Show previous Class Two poster">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
-              </button>
-              <button class="arrow-button next" type="button" aria-label="Show next Class Two poster">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
-              </button>
-            </div>
-          </div>
-          <div class="carousel-viewport" tabindex="0" aria-label="Class Two posters. Use left and right arrow keys to browse.">
-            <div class="carousel-track"></div>
-          </div>
-          <div class="carousel-footer">
-            <div class="carousel-dots" aria-label="Choose a Class Two poster"></div>
-            <span class="swipe-hint"><span aria-hidden="true">↔</span> Swipe or drag to browse</span>
-          </div>
-        </section>
-
-        <section class="class-section" id="class-three" data-carousel="class-three" aria-labelledby="class-three-title">
-          <div class="section-heading">
-            <div class="class-label">
-              <span>03</span>
-              <div>
-                <p class="eyebrow">Connect the ideas</p>
-                <h2 id="class-three-title">Class Three</h2>
-              </div>
-            </div>
-            <div class="carousel-controls" aria-label="Class Three poster controls">
-              <span class="carousel-status" aria-live="polite"></span>
-              <button class="arrow-button previous" type="button" aria-label="Show previous Class Three poster">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
-              </button>
-              <button class="arrow-button next" type="button" aria-label="Show next Class Three poster">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
-              </button>
-            </div>
-          </div>
-          <div class="carousel-viewport" tabindex="0" aria-label="Class Three posters. Use left and right arrow keys to browse.">
-            <div class="carousel-track"></div>
-          </div>
-          <div class="carousel-footer">
-            <div class="carousel-dots" aria-label="Choose a Class Three poster"></div>
-            <span class="swipe-hint"><span aria-hidden="true">↔</span> Swipe or drag to browse</span>
-          </div>
-        </section>
-
-        <section class="class-section" id="class-four" data-carousel="class-four" aria-labelledby="class-four-title">
-          <div class="section-heading">
-            <div class="class-label">
-              <span>04</span>
-              <div>
-                <p class="eyebrow">Shape what comes next</p>
-                <h2 id="class-four-title">Class Four</h2>
-              </div>
-            </div>
-            <div class="carousel-controls" aria-label="Class Four poster controls">
-              <span class="carousel-status" aria-live="polite"></span>
-              <button class="arrow-button previous" type="button" aria-label="Show previous Class Four poster">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
-              </button>
-              <button class="arrow-button next" type="button" aria-label="Show next Class Four poster">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
-              </button>
-            </div>
-          </div>
-          <div class="carousel-viewport" tabindex="0" aria-label="Class Four posters. Use left and right arrow keys to browse.">
-            <div class="carousel-track"></div>
-          </div>
-          <div class="carousel-footer">
-            <div class="carousel-dots" aria-label="Choose a Class Four poster"></div>
-            <span class="swipe-hint"><span aria-hidden="true">↔</span> Swipe or drag to browse</span>
-          </div>
-        </section>
-      </div>
-
-      <section class="closing-panel" aria-labelledby="closing-title">
-        <p class="eyebrow">Make the collection yours</p>
-        <h2 id="closing-title">Add your poster images. Publish your collection.</h2>
-        <p>
-          The gallery is intentionally simple to update: every poster lives in
-          one clearly marked list in <code>script.js</code>, with an image path
-          and an optional PDF field.
-        </p>
-        <a class="button button-light" href="README.md">Read the customization guide</a>
-      </section>
+      <footer class="viewer-footer">
+        <span class="poster-counter" id="poster-counter" aria-live="polite">— / —</span>
+        <div class="poster-dots" id="poster-dots" aria-label="Choose a poster"></div>
+        <span class="gesture-hint"><span aria-hidden="true">↔</span> Swipe or drag</span>
+      </footer>
     </main>
-
-    <footer class="site-footer">
-      <a class="brand footer-brand" href="#top">
-        <span class="brand-mark" aria-hidden="true">B</span>
-        <strong>The Brochure Room</strong>
-      </a>
-      <p>Built as a responsive, accessible static site.</p>
-      <a href="#top">Back to top ↑</a>
-    </footer>
-
-    <template id="brochure-card-template">
-      <article class="brochure-card">
-        <div class="brochure-image-wrap">
-          <img class="brochure-image" alt="" draggable="false" />
-          <span class="brochure-number"></span>
-          <span class="placeholder-tag">Replace image</span>
-        </div>
-        <div class="brochure-content">
-          <div>
-            <p class="brochure-kicker"></p>
-            <h3 class="brochure-title"></h3>
-            <p class="brochure-description"></p>
-          </div>
-          <div class="brochure-meta">
-            <span class="brochure-format">Poster · image</span>
-            <span class="brochure-pages"></span>
-          </div>
-          <div class="brochure-action"></div>
-        </div>
-      </article>
-    </template>
   </body>
 </html>

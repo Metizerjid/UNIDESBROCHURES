@@ -1,191 +1,137 @@
-# The Brochure Room
+# The Poster Room
 
-A complete static poster gallery with four classes, three posters per class,
-and twelve posters total. It is ready for GitHub Pages and does not
-need a build step, package manager, or framework.
+A full-screen poster viewer designed for a single shared link. Visitors see one
+random poster when the page opens and can move through the collection using:
 
-## What is included
+- Left/right buttons
+- Keyboard arrow keys
+- Touch swipe
+- Mouse drag
+- The position dots at the bottom
 
-- Four class sections with three posters in each section
-- One randomly selected poster visible per class on every screen size
-- The other two posters remain available through arrows, keyboard controls,
-  touch swipe, or mouse drag
-- Previous/next arrow controls, keyboard arrow support, touch swipe, and mouse
-  drag support
-- Random poster order on every page load, plus a **Shuffle posters** button
-- Accessible headings, focus styles, labels, reduced-motion support, and a skip
-  link
-- Twelve clearly labeled sample SVG cover images
-- A clearly marked PDF folder and one-line PDF paths in `script.js`
-- No external dependencies, fonts, trackers, or network requests
+The page has no class/category labels and no vertical scrolling.
 
-## Project structure
+## Project files
 
 ```text
 brochure-gallery/
-├── index.html                 Page structure and visible text
-├── styles.css                 Colors, layout, cards, and responsive design
-├── script.js                  Brochure content, randomization, and carousel behavior
-├── .nojekyll                  Keeps GitHub Pages publishing simple
+├── index.html
+├── styles.css
+├── script.js
 ├── assets/
-│   ├── favicon.svg
-│   ├── brochures/             Replaceable cover-image placeholders
-│   └── pdfs/                  Put your brochure PDFs here
-└── README.md                  This guide
+│   ├── brochures/    Local fallback poster images
+│   └── favicon.svg
+└── README.md
 ```
 
-## Preview the website locally
+## Preview locally
 
-The simplest option is to double-click `index.html`. For a more accurate local
-preview, open PowerShell or a terminal in this folder and run:
-
-```powershell
-python -m http.server 8000
-```
-
-Then open [http://localhost:8000](http://localhost:8000). Stop the preview with
-`Ctrl+C` in the terminal.
-
-If `python` is not recognized on Windows, try:
+Run this command inside the project folder:
 
 ```powershell
 py -m http.server 8000
 ```
 
-## Customize the brochures
+Then open [http://localhost:8000](http://localhost:8000).
 
-### 1. Change a title, description, or page count
+## Connect your poster API
 
-Open `script.js`. The editable `brochureClasses` list is at the very top. Each
-brochure looks like this:
+GitHub Pages is a static hosting service, so database usernames, passwords, and
+private keys must never be placed in this repository. Your database should be
+accessed through a public read-only API endpoint that returns the posters.
+
+Open `script.js` and set:
 
 ```js
+const POSTER_API_URL = "https://api.example.com/posters";
+```
+
+The API may return an array:
+
+```json
+[
+  {
+    "id": "poster-1",
+    "title": "Poster title",
+    "imageUrl": "https://cdn.example.com/posters/poster-1.jpg"
+  }
+]
+```
+
+Or an object containing a `posters` array:
+
+```json
 {
-  id: "01",
-  kicker: "Patterns & play",
-  title: "Numbers in Nature",
-  description: "Your brochure summary goes here.",
-  pages: "12 pages",
-  image: "assets/brochures/01-numbers-in-nature.svg",
-  pdf: "",
+  "posters": [
+    {
+      "id": "poster-1",
+      "title": "Poster title",
+      "imageUrl": "https://cdn.example.com/posters/poster-1.jpg"
+    }
+  ]
 }
 ```
 
-Edit the text between quotation marks. Keep three brochure objects inside each
-class to preserve the requested 4 × 3 layout.
+Accepted image fields are `image`, `imageUrl`, `url`, or `src`. The
+`title` field is optional. Class/category fields are ignored and never shown
+to visitors.
 
-### 2. Replace a cover image
+The API must:
 
-Either:
+- Be accessible through HTTPS
+- Allow browser requests from
+  `https://metizerjid.github.io` using CORS
+- Return public image URLs
+- Expose only information that visitors are allowed to see
 
-1. Replace an SVG file inside `assets/brochures/` and keep its current filename;
-   or
-2. Add a JPG, PNG, WebP, or SVG image and update that brochure's `image` path in
+If the API URL is empty or the API cannot be reached, the viewer uses the 12
+local sample posters defined in `localPosterGroups` inside `script.js`.
+
+## Use local images instead
+
+1. Copy poster images into `assets/brochures/`.
+2. Update the matching `image` paths inside `localPosterGroups` in
    `script.js`.
+3. Keep `POSTER_API_URL` empty.
 
-Portrait artwork around a 3:4 or A-series paper ratio and at least 900 px wide
-works best. Poster artwork is shown in full without cropping.
+Poster images are displayed with `object-fit: contain`, so portrait, landscape,
+and square artwork is shown without cropping.
 
-### 3. Add a PDF
+## First GitHub push
 
-1. Copy the PDF into `assets/pdfs/`, for example:
-   `assets/pdfs/numbers-in-nature.pdf`.
-2. Find that brochure in `script.js`.
-3. Change its empty PDF value to the matching path:
-
-```js
-pdf: "assets/pdfs/numbers-in-nature.pdf",
-```
-
-The **Add your PDF** placeholder automatically becomes an **Open brochure PDF**
-link. Repeat for each brochure you want visitors to open.
-
-### 4. Rename the four classes
-
-Update the visible class names in `index.html`. The internal keys
-`class-one`, `class-two`, `class-three`, and `class-four` connect the page to the
-data in `script.js`; keep those keys unchanged unless you update them in both
-files.
-
-### 5. Change colors and branding
-
-Open `styles.css` and edit the variables at the top:
-
-```css
-:root {
-  --ink: #183247;
-  --paper: #f7f1e7;
-  --coral: #ee6f57;
-  --sky: #c8e6e8;
-}
-```
-
-Change **The Brochure Room** and its subtitle in the header and footer of
-`index.html` to use your organization or school name.
-
-## Create a GitHub repository and push with Git
-
-First, create an empty repository on [GitHub](https://github.com/new). Do not add
-a README, license, or `.gitignore` on GitHub because this project already has
-those files. Copy the repository URL, then run the following commands from this
-project folder.
-
-Replace `YOUR-USERNAME` and `YOUR-REPOSITORY` in the URL before running the
-`git remote add` command.
+For a new local copy of this project, run these commands inside the project
+folder:
 
 ```powershell
 git init
 git add .
-git commit -m "Create responsive brochure gallery"
+git commit -m "Create full-screen poster viewer"
 git branch -M main
-git remote add origin https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
+git remote add origin https://github.com/Metizerjid/UNIDESBROCHURES.git
 git push -u origin main
 ```
 
-If Git asks you to sign in, complete GitHub's browser sign-in or use a GitHub
-personal access token instead of a password.
+If the `origin` remote already exists, update it instead:
 
-### Push future updates
+```powershell
+git remote set-url origin https://github.com/Metizerjid/UNIDESBROCHURES.git
+git push -u origin main
+```
 
-After changing brochures, images, or PDFs, run:
+## GitHub Pages
+
+In the GitHub repository, open **Settings → Pages**. Under **Build and
+deployment**, select **Deploy from a branch**, then choose `main` and `/(root)`.
+Save the setting. GitHub will publish the site at the live address below.
+
+## Push future updates
 
 ```powershell
 git add .
-git commit -m "Update brochure collection"
+git commit -m "Update poster viewer"
 git push
 ```
 
-## Deploy with GitHub Pages
+Live site:
 
-After the first push:
-
-1. Open your repository on GitHub.
-2. Select **Settings**.
-3. Select **Pages** in the left sidebar.
-4. Under **Build and deployment**, set **Source** to **Deploy from a branch**.
-5. Choose the `main` branch and the `/(root)` folder.
-6. Select **Save**.
-
-GitHub will publish the site at:
-
-```text
-https://YOUR-USERNAME.github.io/YOUR-REPOSITORY/
-```
-
-The first deployment can take a few minutes. The **Pages** screen will show the
-live link when it is ready. Future pushes to `main` will redeploy automatically.
-
-## Quick pre-publish checklist
-
-- Replace all twelve placeholder cover images.
-- Add the intended PDF files and update their `pdf` paths.
-- Check every PDF link in a private/incognito browser window.
-- Test the site at phone and desktop widths.
-- Replace the site title, introductory text, and class labels.
-- Confirm you have permission to publish every brochure and image.
-
-## Browser support
-
-The site works in current versions of Chrome, Edge, Firefox, and Safari. If
-JavaScript is disabled, the page framing still loads, but brochure cards and
-carousel controls require JavaScript.
+<https://metizerjid.github.io/UNIDESBROCHURES/>

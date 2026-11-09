@@ -1,9 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 960">
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="960" viewBox="0 0 720 960">
   <rect width="720" height="960" fill="#b8dfe2"/>
   <path d="M0 0h240v960H0z" fill="#17324d"/><path d="M480 0h240v960H480z" fill="#ee6f57"/>
   <circle cx="360" cy="420" r="225" fill="#f8f0df" stroke="#17324d" stroke-width="14"/>
   <path d="M220 414c45-55 79-20 116-62 55-63 91 55 153 4 35-29 75 4 82 52-7 127-99 224-211 224-115 0-210-100-214-229 21 11 42 15 74 11Z" fill="#62a083"/>
   <text x="64" y="72" fill="#fff" font-family="Arial,sans-serif" font-size="18" font-weight="700" letter-spacing="4">PLACEHOLDER • 03</text>
   <text x="360" y="404" fill="#17324d" font-family="Georgia,serif" font-size="64" text-anchor="middle"><tspan x="360">Our Shared</tspan><tspan x="360" dy="68">World</tspan></text>
-  <text x="360" y="890" fill="#17324d" font-family="Arial,sans-serif" font-size="17" font-weight="700" letter-spacing="3" text-anchor="middle">CLASS 01 • REPLACE THIS COVER</text>
+  <text x="360" y="890" fill="#17324d" font-family="Arial,sans-serif" font-size="17" font-weight="700" letter-spacing="3" text-anchor="middle">POSTER 03 • REPLACE THIS COVER</text>
 </svg>
