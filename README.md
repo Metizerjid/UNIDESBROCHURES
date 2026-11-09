@@ -1,137 +1,103 @@
 # The Poster Room
 
-A full-screen poster viewer designed for a single shared link. Visitors see one
-random poster when the page opens and can move through the collection using:
+Site dört ayrı klasörden çalışır. Her klasörde üç poster seçeneği bulunur.
+Sayfa her açıldığında:
 
-- Left/right buttons
-- Keyboard arrow keys
-- Touch swipe
-- Mouse drag
-- The position dots at the bottom
+1. Her klasörden rastgele bir poster seçilir.
+2. Seçilen dört poster kendi arasında rastgele sıralanır.
+3. Ziyaretçi yalnızca bu dört posteri oklarla, klavyeyle veya kaydırarak gezer.
 
-The page has no class/category labels and no vertical scrolling.
+Klasör ve kategori adları ziyaretçiye gösterilmez. Sayfada aşağı-yukarı kaydırma
+yoktur.
 
-## Project files
+## Poster klasörleri
 
 ```text
-brochure-gallery/
-├── index.html
-├── styles.css
-├── script.js
-├── assets/
-│   ├── brochures/    Local fallback poster images
-│   └── favicon.svg
-└── README.md
+assets/
+└── posters/
+    ├── klasor-1/
+    │   ├── poster-1.svg
+    │   ├── poster-2.svg
+    │   └── poster-3.svg
+    ├── klasor-2/
+    │   ├── poster-1.svg
+    │   ├── poster-2.svg
+    │   └── poster-3.svg
+    ├── klasor-3/
+    │   ├── poster-1.svg
+    │   ├── poster-2.svg
+    │   └── poster-3.svg
+    └── klasor-4/
+        ├── poster-1.svg
+        ├── poster-2.svg
+        └── poster-3.svg
 ```
 
-## Preview locally
+Şu anda bu klasörlerde örnek SVG posterler bulunmaktadır.
 
-Run this command inside the project folder:
+## Kendi görsellerini ekleme
+
+JPG, JPEG, PNG, WebP veya SVG kullanabilirsin. Her klasöre tam olarak üç görsel
+ekle.
+
+Örnek olarak birinci klasöre şu dosyaları koyabilirsin:
+
+```text
+assets/posters/klasor-1/afis-1.jpg
+assets/posters/klasor-1/afis-2.jpg
+assets/posters/klasor-1/afis-3.jpg
+```
+
+Ardından `script.js` dosyasının başındaki `posterFolders` bölümünü dosya
+adlarınla eşleştir:
+
+```js
+{
+  path: "assets/posters/klasor-1",
+  posters: [
+    { id: "1-1", title: "Birinci afiş", file: "afis-1.jpg" },
+    { id: "1-2", title: "İkinci afiş", file: "afis-2.jpg" },
+    { id: "1-3", title: "Üçüncü afiş", file: "afis-3.jpg" },
+  ],
+},
+```
+
+Aynı işlemi `klasor-2`, `klasor-3` ve `klasor-4` için de yap. `file` alanı,
+klasördeki dosya adı ve uzantısıyla birebir aynı olmalıdır. Büyük/küçük harf
+farkı GitHub Pages üzerinde önemlidir.
+
+GitHub Pages güvenlik nedeniyle bir klasörün içindeki dosyaları kendiliğinden
+listeleyemez. Bu nedenle yeni görsel eklediğinde dosya adını `script.js`
+içerisinde de belirtmen gerekir.
+
+Örnek SVG dosyalarını kullanmayacaksan kendi dosyalarını ekledikten sonra
+silebilirsin. Dosya adlarında boşluk ve Türkçe karakter kullanmamak işleri
+kolaylaştırır; örneğin `proje-afisi-1.jpg` uygundur.
+
+## Yerel önizleme
+
+Proje klasöründe terminal açıp çalıştır:
 
 ```powershell
 py -m http.server 8000
 ```
 
-Then open [http://localhost:8000](http://localhost:8000).
+Sonra tarayıcıdan [http://localhost:8000](http://localhost:8000) adresini aç.
 
-## Connect your poster API
-
-GitHub Pages is a static hosting service, so database usernames, passwords, and
-private keys must never be placed in this repository. Your database should be
-accessed through a public read-only API endpoint that returns the posters.
-
-Open `script.js` and set:
-
-```js
-const POSTER_API_URL = "https://api.example.com/posters";
-```
-
-The API may return an array:
-
-```json
-[
-  {
-    "id": "poster-1",
-    "title": "Poster title",
-    "imageUrl": "https://cdn.example.com/posters/poster-1.jpg"
-  }
-]
-```
-
-Or an object containing a `posters` array:
-
-```json
-{
-  "posters": [
-    {
-      "id": "poster-1",
-      "title": "Poster title",
-      "imageUrl": "https://cdn.example.com/posters/poster-1.jpg"
-    }
-  ]
-}
-```
-
-Accepted image fields are `image`, `imageUrl`, `url`, or `src`. The
-`title` field is optional. Class/category fields are ignored and never shown
-to visitors.
-
-The API must:
-
-- Be accessible through HTTPS
-- Allow browser requests from
-  `https://metizerjid.github.io` using CORS
-- Return public image URLs
-- Expose only information that visitors are allowed to see
-
-If the API URL is empty or the API cannot be reached, the viewer uses the 12
-local sample posters defined in `localPosterGroups` inside `script.js`.
-
-## Use local images instead
-
-1. Copy poster images into `assets/brochures/`.
-2. Update the matching `image` paths inside `localPosterGroups` in
-   `script.js`.
-3. Keep `POSTER_API_URL` empty.
-
-Poster images are displayed with `object-fit: contain`, so portrait, landscape,
-and square artwork is shown without cropping.
-
-## First GitHub push
-
-For a new local copy of this project, run these commands inside the project
-folder:
-
-```powershell
-git init
-git add .
-git commit -m "Create full-screen poster viewer"
-git branch -M main
-git remote add origin https://github.com/Metizerjid/UNIDESBROCHURES.git
-git push -u origin main
-```
-
-If the `origin` remote already exists, update it instead:
-
-```powershell
-git remote set-url origin https://github.com/Metizerjid/UNIDESBROCHURES.git
-git push -u origin main
-```
-
-## GitHub Pages
-
-In the GitHub repository, open **Settings → Pages**. Under **Build and
-deployment**, select **Deploy from a branch**, then choose `main` and `/(root)`.
-Save the setting. GitHub will publish the site at the live address below.
-
-## Push future updates
+## Değişiklikleri GitHub'a gönderme
 
 ```powershell
 git add .
-git commit -m "Update poster viewer"
-git push
+git commit -m "Kendi posterlerimi ekle"
+git push origin main
 ```
 
-Live site:
+GitHub Pages birkaç dakika içinde güncellenir.
+
+Canlı site:
 
 <https://metizerjid.github.io/UNIDESBROCHURES/>
+
+GitHub deposu:
+
+<https://github.com/Metizerjid/UNIDESBROCHURES.git>

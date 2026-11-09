@@ -1,131 +1,40 @@
-// -----------------------------------------------------------------------------
-// POSTER DATA
-// Add your public API endpoint to POSTER_API_URL when it is ready. The endpoint
-// may return either an array or { posters: [...] }. Each poster needs an image
-// URL in `image`, `imageUrl`, `url`, or `src`; `title` is optional.
-// Leave the URL empty to use the local sample posters below.
-// -----------------------------------------------------------------------------
-
-const POSTER_API_URL = "";
-
-const localPosterGroups = {
-  "class-one": [
-    {
-      id: "01",
-      kicker: "Patterns & play",
-      title: "Numbers in Nature",
-      description: "A visual introduction to counting, patterns, and the surprising mathematics hiding in the natural world.",
-      pages: "12 pages",
-      image: "assets/brochures/01-numbers-in-nature.svg",
-      pdf: "",
-    },
-    {
-      id: "02",
-      kicker: "Words & imagination",
-      title: "First Readers",
-      description: "Friendly prompts, short stories, and playful activities created to make early reading feel like discovery.",
-      pages: "16 pages",
-      image: "assets/brochures/02-first-readers.svg",
-      pdf: "",
-    },
-    {
-      id: "03",
-      kicker: "People & places",
-      title: "Our Shared World",
-      description: "An inviting tour of families, neighborhoods, and the many ways communities learn and grow together.",
-      pages: "10 pages",
-      image: "assets/brochures/03-our-shared-world.svg",
-      pdf: "",
-    },
-  ],
-  "class-two": [
-    {
-      id: "04",
-      kicker: "Questions & evidence",
-      title: "Young Scientists",
-      description: "Simple experiments and observation guides that turn everyday curiosity into a practical science habit.",
-      pages: "14 pages",
-      image: "assets/brochures/04-young-scientists.svg",
-      pdf: "",
-    },
-    {
-      id: "05",
-      kicker: "Language & form",
-      title: "Stories & Structure",
-      description: "A clear, creative guide to characters, sequence, and the building blocks behind memorable stories.",
-      pages: "12 pages",
-      image: "assets/brochures/05-stories-and-structure.svg",
-      pdf: "",
-    },
-    {
-      id: "06",
-      kicker: "Space & belonging",
-      title: "Maps & Communities",
-      description: "Learn how maps tell stories about movement, place, resources, and the communities around us.",
-      pages: "18 pages",
-      image: "assets/brochures/06-maps-and-communities.svg",
-      pdf: "",
-    },
-  ],
-  "class-three": [
-    {
-      id: "07",
-      kicker: "Make & improve",
-      title: "The Design Lab",
-      description: "A hands-on process for noticing a problem, sketching possibilities, testing ideas, and improving them.",
-      pages: "16 pages",
-      image: "assets/brochures/07-design-lab.svg",
-      pdf: "",
-    },
-    {
-      id: "08",
-      kicker: "Life & connection",
-      title: "Living Systems",
-      description: "Explore food webs, habitats, and the quiet connections that help ecosystems stay in balance.",
-      pages: "20 pages",
-      image: "assets/brochures/08-living-systems.svg",
-      pdf: "",
-    },
-    {
-      id: "09",
-      kicker: "Memory & meaning",
-      title: "Voices in History",
-      description: "A source-based approach to understanding the past through letters, objects, images, and lived experience.",
-      pages: "14 pages",
-      image: "assets/brochures/09-voices-in-history.svg",
-      pdf: "",
-    },
-  ],
-  "class-four": [
-    {
-      id: "10",
-      kicker: "Imagine & build",
-      title: "Future Makers",
-      description: "Creative challenges that connect technology, teamwork, and thoughtful choices about the future.",
-      pages: "18 pages",
-      image: "assets/brochures/10-future-makers.svg",
-      pdf: "",
-    },
-    {
-      id: "11",
-      kicker: "Climate & choices",
-      title: "Earth & Energy",
-      description: "A practical look at energy, climate systems, and the choices that shape a more resilient planet.",
-      pages: "22 pages",
-      image: "assets/brochures/11-earth-and-energy.svg",
-      pdf: "",
-    },
-    {
-      id: "12",
-      kicker: "Think & communicate",
-      title: "Ideas into Action",
-      description: "A toolkit for researching a question, forming a point of view, and sharing it with clarity and purpose.",
-      pages: "16 pages",
-      image: "assets/brochures/12-ideas-into-action.svg",
-      pdf: "",
-    },
-  ],
-};
+// Each folder contains exactly three poster options. On every page load the
+// viewer selects one poster from each folder, then shuffles the four results.
+// Folder names are internal and are never shown to visitors.
+const posterFolders = [
+  {
+    path: "assets/posters/klasor-1",
+    posters: [
+      { id: "1-1", title: "Numbers in Nature", file: "poster-1.svg" },
+      { id: "1-2", title: "First Readers", file: "poster-2.svg" },
+      { id: "1-3", title: "Our Shared World", file: "poster-3.svg" },
+    ],
+  },
+  {
+    path: "assets/posters/klasor-2",
+    posters: [
+      { id: "2-1", title: "Young Scientists", file: "poster-1.svg" },
+      { id: "2-2", title: "Stories & Structure", file: "poster-2.svg" },
+      { id: "2-3", title: "Maps & Communities", file: "poster-3.svg" },
+    ],
+  },
+  {
+    path: "assets/posters/klasor-3",
+    posters: [
+      { id: "3-1", title: "The Design Lab", file: "poster-1.svg" },
+      { id: "3-2", title: "Living Systems", file: "poster-2.svg" },
+      { id: "3-3", title: "Voices in History", file: "poster-3.svg" },
+    ],
+  },
+  {
+    path: "assets/posters/klasor-4",
+    posters: [
+      { id: "4-1", title: "Future Makers", file: "poster-1.svg" },
+      { id: "4-2", title: "Earth & Energy", file: "poster-2.svg" },
+      { id: "4-3", title: "Ideas into Action", file: "poster-3.svg" },
+    ],
+  },
+];
 
 const elements = {
   stage: document.querySelector("#poster-stage"),
@@ -176,24 +85,20 @@ function normalizePoster(item, index) {
   };
 }
 
-async function loadPosters() {
-  if (POSTER_API_URL) {
-    try {
-      const response = await fetch(POSTER_API_URL, { cache: "no-store" });
-      if (!response.ok) throw new Error(`Poster API returned ${response.status}`);
-      const payload = await response.json();
-      const records = Array.isArray(payload) ? payload : payload.posters;
-      if (!Array.isArray(records)) throw new Error("Poster API response must contain a posters array");
-
-      const posters = records.map(normalizePoster).filter(Boolean);
-      if (posters.length === 0) throw new Error("Poster API returned no usable image URLs");
-      return posters;
-    } catch (error) {
-      console.warn("Poster API could not be loaded; using local fallback posters.", error);
-    }
-  }
-
-  return Object.values(localPosterGroups).flat().map(normalizePoster).filter(Boolean);
+function loadPosters() {
+  return posterFolders
+    .map((folder, folderIndex) => {
+      if (!folder.posters.length) return null;
+      const selected = folder.posters[randomIndex(folder.posters.length)];
+      return normalizePoster(
+        {
+          ...selected,
+          image: `${folder.path}/${selected.file}`,
+        },
+        folderIndex,
+      );
+    })
+    .filter(Boolean);
 }
 
 function buildDots() {
