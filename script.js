@@ -157,7 +157,7 @@ function buildCard(brochure) {
   const action = card.querySelector(".brochure-action");
 
   image.src = brochure.image;
-  image.alt = `${brochure.title} brochure cover placeholder`;
+  image.alt = `${brochure.title} poster placeholder`;
   card.querySelector(".brochure-number").textContent = brochure.id;
   card.querySelector(".brochure-kicker").textContent = brochure.kicker;
   card.querySelector(".brochure-title").textContent = brochure.title;
@@ -170,14 +170,14 @@ function buildCard(brochure) {
     link.href = brochure.pdf;
     link.target = "_blank";
     link.rel = "noopener";
-    link.textContent = "Open brochure PDF";
-    link.setAttribute("aria-label", `Open ${brochure.title} PDF in a new tab`);
+    link.textContent = "Open poster PDF";
+    link.setAttribute("aria-label", `Open ${brochure.title} poster PDF in a new tab`);
     action.append(link);
   } else {
     const placeholder = document.createElement("span");
     placeholder.className = "brochure-link-disabled";
-    placeholder.textContent = "Add your PDF";
-    placeholder.title = "Add a PDF path for this brochure in script.js";
+    placeholder.textContent = "Optional PDF not added";
+    placeholder.title = "Optionally add a PDF path for this poster in script.js";
     action.append(placeholder);
   }
 
@@ -192,16 +192,18 @@ function renderCarousel(section, direction = "") {
   const status = section.querySelector(".carousel-status");
   const dots = section.querySelector(".carousel-dots");
 
-  track.replaceChildren(...orderedItems.map(buildCard));
+  // Only the active poster is rendered. The other two stay in state and become
+  // available when the visitor uses an arrow, keyboard, swipe, or drag control.
+  track.replaceChildren(buildCard(orderedItems[0]));
   track.className = `carousel-track${direction ? ` is-${direction}` : ""}`;
-  status.textContent = `Lead brochure ${state.offset + 1} of ${state.items.length}`;
+  status.textContent = `Poster ${state.offset + 1} of ${state.items.length}`;
 
   dots.replaceChildren(
     ...state.items.map((item, index) => {
       const dot = document.createElement("button");
       dot.className = "carousel-dot";
       dot.type = "button";
-      dot.textContent = `Make ${item.title} the first brochure`;
+      dot.textContent = `Show ${item.title} poster`;
       dot.setAttribute("aria-current", String(index === state.offset));
       dot.addEventListener("click", () => {
         const previousOffset = state.offset;

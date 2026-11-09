@@ -1,17 +1,18 @@
 # The Brochure Room
 
-A complete static brochure gallery with four classes, three brochures per
-class, and twelve brochures total. It is ready for GitHub Pages and does not
+A complete static poster gallery with four classes, three posters per class,
+and twelve posters total. It is ready for GitHub Pages and does not
 need a build step, package manager, or framework.
 
 ## What is included
 
-- Four class sections with three brochure cards in each section
-- Three cards side by side on desktop, two on tablet, and a swipeable single
-  card view on mobile
+- Four class sections with three posters in each section
+- One randomly selected poster visible per class on every screen size
+- The other two posters remain available through arrows, keyboard controls,
+  touch swipe, or mouse drag
 - Previous/next arrow controls, keyboard arrow support, touch swipe, and mouse
   drag support
-- Random brochure order on every page load, plus a **Shuffle brochures** button
+- Random poster order on every page load, plus a **Shuffle posters** button
 - Accessible headings, focus styles, labels, reduced-motion support, and a skip
   link
 - Twelve clearly labeled sample SVG cover images
@@ -82,8 +83,8 @@ Either:
 2. Add a JPG, PNG, WebP, or SVG image and update that brochure's `image` path in
    `script.js`.
 
-Portrait artwork around a 3:4 ratio and at least 900 px wide works best. Keep
-important words near the center because the gallery card uses a landscape crop.
+Portrait artwork around a 3:4 or A-series paper ratio and at least 900 px wide
+works best. Poster artwork is shown in full without cropping.
 
 ### 3. Add a PDF
 
