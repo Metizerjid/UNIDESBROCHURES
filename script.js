@@ -5,17 +5,17 @@ const posterFolders = [
   {
     path: "assets/posters/klasor-1",
     posters: [
-      { id: "1-1", title: "Numbers in Nature", file: "poster-1.svg" },
-      { id: "1-2", title: "First Readers", file: "poster-2.svg" },
-      { id: "1-3", title: "Our Shared World", file: "poster-3.svg" },
+      { id: "1-1", title: "Poster 1", file: "d0f05b1970e49ce7cfe0425b0e535a21.jpg" },
+      { id: "1-2", title: "Poster 2", file: "d941b415ba4e1054181518ecb7550c1c.jpg" },
+      { id: "1-3", title: "Poster 3", file: "e0160e6c4e0544c87c418757926ec3ea.jpg" },
     ],
   },
   {
     path: "assets/posters/klasor-2",
     posters: [
-      { id: "2-1", title: "Young Scientists", file: "poster-1.svg" },
-      { id: "2-2", title: "Stories & Structure", file: "poster-2.svg" },
-      { id: "2-3", title: "Maps & Communities", file: "poster-3.svg" },
+      { id: "2-1", title: "Poster 4", file: "3ec757fdda954a5efba6c581cbcc3304.jpg" },
+      { id: "2-2", title: "Poster 5", file: "4bcff2730fe14ab46cbd8e4626d1df17.jpg" },
+      { id: "2-3", title: "Poster 6", file: "83ee210445be3d25451aa18bfba6451c.jpg" },
     ],
   },
   {

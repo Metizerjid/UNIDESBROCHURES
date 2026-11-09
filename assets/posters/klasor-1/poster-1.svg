@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="720" height="960" viewBox="0 0 720 960">
-  <rect width="720" height="960" fill="#17324d"/>
-  <circle cx="600" cy="160" r="230" fill="#ef755d"/>
-  <path d="M-80 790C125 600 245 875 410 690s270-35 390-170v440H-80Z" fill="#b9dfe0"/>
-  <g fill="none" stroke="#fff8eb" stroke-width="3" opacity=".72"><circle cx="152" cy="250" r="72"/><circle cx="152" cy="250" r="112"/><path d="M152 138v224M40 250h224"/></g>
-  <text x="64" y="72" fill="#fff8eb" font-family="Arial,sans-serif" font-size="18" font-weight="700" letter-spacing="4">PLACEHOLDER POSTER • 01</text>
-  <text x="64" y="420" fill="#fff8eb" font-family="Georgia,serif" font-size="82"><tspan x="64">Numbers</tspan><tspan x="64" dy="82">in Nature</tspan></text>
-  <text x="64" y="900" fill="#17324d" font-family="Arial,sans-serif" font-size="18" font-weight="700" letter-spacing="3">REPLACE WITH YOUR ARTWORK</text>
-</svg>
