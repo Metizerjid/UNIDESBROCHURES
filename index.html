@@ -11,12 +11,12 @@
     <title>The Poster Room</title>
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="styles.css" />
-    <script src="script.js?v=20261109-1" defer></script>
+    <script src="script.js?v=20261115-1" defer></script>
   </head>
   <body>
     <main class="viewer" aria-label="Poster gallery">
       <header class="viewer-header">
-        <a class="brand" href="./" aria-label="The Poster Room, reload with a random poster">
+        <a class="brand" id="brand-link" href="?afis=1" aria-label="The Poster Room">
           <span class="brand-mark" aria-hidden="true">P</span>
           <span>
             <strong>The Poster Room</strong>
@@ -24,9 +24,9 @@
           </span>
         </a>
 
-        <p class="random-note">
+        <p class="mode-note">
           <span aria-hidden="true"></span>
-          Random start
+          Fixed order
         </p>
       </header>
 

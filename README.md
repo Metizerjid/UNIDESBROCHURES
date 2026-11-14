@@ -1,78 +1,68 @@
-# The Poster Room
+# The Poster Room — 3 QR Yapısı
 
-Site dört ayrı klasörden çalışır. Her klasörde üç poster seçeneği bulunur.
-Sayfa her açıldığında:
+Site artık üç farklı QR bağlantısıyla çalışır. Her bağlantı yalnızca kendisine
+ait klasördeki görselleri, mevcut sağa-sola kaydırmalı carousel içinde gösterir.
+Rastgele seçim tamamen kaldırılmıştır.
 
-1. Her klasörden rastgele bir poster seçilir.
-2. Seçilen dört poster kendi arasında rastgele sıralanır.
-3. Ziyaretçi yalnızca bu dört posteri oklarla, klavyeyle veya kaydırarak gezer.
+## QR kodlarında kullanılacak bağlantılar
 
-Klasör ve kategori adları ziyaretçiye gösterilmez. Sayfada aşağı-yukarı kaydırma
-yoktur.
-
-## Poster klasörleri
+### Afiş 1
 
 ```text
-assets/
-└── posters/
-    ├── klasor-1/
-    │   ├── poster-1.svg
-    │   ├── poster-2.svg
-    │   └── poster-3.svg
-    ├── klasor-2/
-    │   ├── poster-1.svg
-    │   ├── poster-2.svg
-    │   └── poster-3.svg
-    ├── klasor-3/
-    │   ├── poster-1.svg
-    │   ├── poster-2.svg
-    │   └── poster-3.svg
-    └── klasor-4/
-        ├── poster-1.svg
-        ├── poster-2.svg
-        └── poster-3.svg
+https://metizerjid.github.io/UNIDESBROCHURES/?afis=1
 ```
 
-Şu anda bu klasörlerde örnek SVG posterler bulunmaktadır.
+Bu bağlantı `assets/posters/klasor-1/` içindeki görselleri gösterir.
 
-## Kendi görsellerini ekleme
-
-JPG, JPEG, PNG, WebP veya SVG kullanabilirsin. Her klasöre tam olarak üç görsel
-ekle.
-
-Örnek olarak birinci klasöre şu dosyaları koyabilirsin:
+### Afiş 2
 
 ```text
-assets/posters/klasor-1/afis-1.jpg
-assets/posters/klasor-1/afis-2.jpg
-assets/posters/klasor-1/afis-3.jpg
+https://metizerjid.github.io/UNIDESBROCHURES/?afis=2
 ```
 
-Ardından `script.js` dosyasının başındaki `posterFolders` bölümünü dosya
-adlarınla eşleştir:
+Bu bağlantı `assets/posters/klasor-2/` içindeki görselleri gösterir.
 
-```js
-{
-  path: "assets/posters/klasor-1",
-  posters: [
-    { id: "1-1", title: "Birinci afiş", file: "afis-1.jpg" },
-    { id: "1-2", title: "İkinci afiş", file: "afis-2.jpg" },
-    { id: "1-3", title: "Üçüncü afiş", file: "afis-3.jpg" },
-  ],
-},
+### Afiş 3
+
+```text
+https://metizerjid.github.io/UNIDESBROCHURES/?afis=3
 ```
 
-Aynı işlemi `klasor-2`, `klasor-3` ve `klasor-4` için de yap. `file` alanı,
-klasördeki dosya adı ve uzantısıyla birebir aynı olmalıdır. Büyük/küçük harf
-farkı GitHub Pages üzerinde önemlidir.
+Bu bağlantı `assets/posters/klasor-3/` içindeki görselleri gösterir.
 
-GitHub Pages güvenlik nedeniyle bir klasörün içindeki dosyaları kendiliğinden
-listeleyemez. Bu nedenle yeni görsel eklediğinde dosya adını `script.js`
-içerisinde de belirtmen gerekir.
+QR kodlarını oluştururken yukarıdaki bağlantıları birebir kullan.
 
-Örnek SVG dosyalarını kullanmayacaksan kendi dosyalarını ekledikten sonra
-silebilirsin. Dosya adlarında boşluk ve Türkçe karakter kullanmamak işleri
-kolaylaştırır; örneğin `proje-afisi-1.jpg` uygundur.
+## Görselleri ekleme
+
+Her klasörde aşağıdaki dört dosya adı kullanılmalıdır:
+
+```text
+poster-1
+poster-2
+poster-3
+poster-4
+```
+
+Dosya uzantısı `.jpg`, `.jpeg`, `.png`, `.webp` veya `.svg` olabilir. Örnek:
+
+```text
+assets/posters/klasor-1/poster-1.jpg
+assets/posters/klasor-1/poster-2.png
+assets/posters/klasor-1/poster-3.webp
+assets/posters/klasor-1/poster-4.svg
+```
+
+Site dosya uzantısını otomatik olarak bulur. Bu standart adları kullandığında
+`script.js` dosyasını tekrar değiştirmen gerekmez.
+
+Görseller `poster-1`, `poster-2`, `poster-3`, `poster-4` sırasıyla gösterilir;
+rastgele sıralama yapılmaz.
+
+> Şu anda `klasor-1`, `klasor-2` ve `klasor-3` içinde üçer görsel bulunuyor.
+> Dördüncü görseli göstermek için her klasöre uygun `poster-4` dosyasını ekle.
+
+`assets/posters/klasor-4/` eski yapıdan kalmıştır ve artık QR bağlantılarında
+kullanılmaz.
 
 ## Yerel önizleme
 
@@ -82,13 +72,19 @@ Proje klasöründe terminal açıp çalıştır:
 py -m http.server 8000
 ```
 
-Sonra tarayıcıdan [http://localhost:8000](http://localhost:8000) adresini aç.
+Ardından şu adreslerle ayrı ayrı test et:
 
-## Değişiklikleri GitHub'a gönderme
+```text
+http://localhost:8000/?afis=1
+http://localhost:8000/?afis=2
+http://localhost:8000/?afis=3
+```
+
+## GitHub'a gönderme
 
 ```powershell
 git add .
-git commit -m "Kendi posterlerimi ekle"
+git commit -m "Poster görsellerini güncelle"
 git push origin main
 ```
 

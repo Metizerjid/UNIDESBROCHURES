@@ -1,42 +1,30 @@
-// Each folder contains exactly three poster options. On every page load the
-// viewer selects one poster from each folder, then shuffles the four results.
-// Folder names are internal and are never shown to visitors.
-const posterFolders = [
+// Each QR code opens the same viewer with a different `afis` query parameter.
+// The selected page shows every available poster in its own folder, in order.
+const posterPages = [
   {
+    id: "1",
+    title: "Afiş 1",
     path: "assets/posters/klasor-1",
-    posters: [
-      { id: "1-1", title: "Poster 1", file: "d0f05b1970e49ce7cfe0425b0e535a21.jpg" },
-      { id: "1-2", title: "Poster 2", file: "d941b415ba4e1054181518ecb7550c1c.jpg" },
-      { id: "1-3", title: "Poster 3", file: "e0160e6c4e0544c87c418757926ec3ea.jpg" },
-    ],
+    extensions: ["jpg", "jpeg", "png", "webp", "svg"],
   },
   {
+    id: "2",
+    title: "Afiş 2",
     path: "assets/posters/klasor-2",
-    posters: [
-      { id: "2-1", title: "Poster 4", file: "3ec757fdda954a5efba6c581cbcc3304.jpg" },
-      { id: "2-2", title: "Poster 5", file: "4bcff2730fe14ab46cbd8e4626d1df17.jpg" },
-      { id: "2-3", title: "Poster 6", file: "83ee210445be3d25451aa18bfba6451c.jpg" },
-    ],
+    extensions: ["jpg", "jpeg", "png", "webp", "svg"],
   },
   {
+    id: "3",
+    title: "Afiş 3",
     path: "assets/posters/klasor-3",
-    posters: [
-      { id: "3-1", title: "The Design Lab", file: "poster-1.svg" },
-      { id: "3-2", title: "Living Systems", file: "poster-2.svg" },
-      { id: "3-3", title: "Voices in History", file: "poster-3.svg" },
-    ],
-  },
-  {
-    path: "assets/posters/klasor-4",
-    posters: [
-      { id: "4-1", title: "Future Makers", file: "poster-1.svg" },
-      { id: "4-2", title: "Earth & Energy", file: "poster-2.svg" },
-      { id: "4-3", title: "Ideas into Action", file: "poster-3.svg" },
-    ],
+    extensions: ["svg", "jpg", "jpeg", "png", "webp"],
   },
 ];
 
+const posterSlots = ["poster-1", "poster-2", "poster-3", "poster-4"];
+
 const elements = {
+  brand: document.querySelector("#brand-link"),
   stage: document.querySelector("#poster-stage"),
   frame: document.querySelector(".poster-frame"),
   image: document.querySelector("#poster-image"),
@@ -55,25 +43,6 @@ const state = {
   pointerId: null,
 };
 
-function randomIndex(max) {
-  if (window.crypto?.getRandomValues) {
-    const values = new Uint32Array(1);
-    window.crypto.getRandomValues(values);
-    return values[0] % max;
-  }
-
-  return Math.floor(Math.random() * max);
-}
-
-function shuffle(items) {
-  const shuffled = [...items];
-  for (let i = shuffled.length - 1; i > 0; i -= 1) {
-    const j = randomIndex(i + 1);
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-  }
-  return shuffled;
-}
-
 function normalizePoster(item, index) {
   const image = item?.image || item?.imageUrl || item?.url || item?.src;
   if (!image) return null;
@@ -85,20 +54,46 @@ function normalizePoster(item, index) {
   };
 }
 
-function loadPosters() {
-  return posterFolders
-    .map((folder, folderIndex) => {
-      if (!folder.posters.length) return null;
-      const selected = folder.posters[randomIndex(folder.posters.length)];
+function imageExists(source) {
+  return new Promise((resolve) => {
+    const image = new Image();
+    image.onload = () => resolve(true);
+    image.onerror = () => resolve(false);
+    image.src = source;
+  });
+}
+
+function getSelectedPage() {
+  const requestedPage = new URLSearchParams(window.location.search).get("afis") || "1";
+  return posterPages.find((page) => page.id === requestedPage) || posterPages[0];
+}
+
+async function resolvePoster(page, slot, index) {
+  for (const extension of page.extensions) {
+    const image = `${page.path}/${slot}.${extension}`;
+    if (await imageExists(image)) {
       return normalizePoster(
         {
-          ...selected,
-          image: `${folder.path}/${selected.file}`,
+          id: `${page.id}-${index + 1}`,
+          title: `Görsel ${index + 1}`,
+          image,
         },
-        folderIndex,
+        index,
       );
-    })
-    .filter(Boolean);
+    }
+  }
+
+  return null;
+}
+
+async function loadPosters() {
+  const page = getSelectedPage();
+  document.title = `${page.title} • The Poster Room`;
+  elements.brand.href = `?afis=${page.id}`;
+  const posters = await Promise.all(
+    posterSlots.map((slot, index) => resolvePoster(page, slot, index)),
+  );
+  return posters.filter(Boolean);
 }
 
 function buildDots() {
@@ -211,7 +206,7 @@ function addInteractions() {
 
 async function initialize() {
   addInteractions();
-  state.posters = shuffle(await loadPosters());
+  state.posters = await loadPosters();
 
   if (state.posters.length === 0) {
     elements.loading.textContent = "No posters are available";

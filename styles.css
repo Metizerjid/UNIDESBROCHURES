@@ -122,7 +122,7 @@ button {
   text-transform: uppercase;
 }
 
-.random-note {
+.mode-note {
   display: flex;
   align-items: center;
   gap: 0.55rem;
@@ -134,7 +134,7 @@ button {
   text-transform: uppercase;
 }
 
-.random-note > span {
+.mode-note > span {
   width: 0.5rem;
   height: 0.5rem;
   background: var(--mint);
@@ -357,7 +357,7 @@ button {
   }
 
   .brand small,
-  .random-note {
+  .mode-note {
     display: none;
   }
 
@@ -441,7 +441,7 @@ button {
   }
 
   .brand small,
-  .random-note,
+  .mode-note,
   .gesture-hint {
     display: none;
   }
