@@ -58,8 +58,7 @@ Site dosya uzantısını otomatik olarak bulur. Bu standart adları kullandığ�
 Görseller `poster-1`, `poster-2`, `poster-3`, `poster-4` sırasıyla gösterilir;
 rastgele sıralama yapılmaz.
 
-> Şu anda `klasor-1`, `klasor-2` ve `klasor-3` içinde üçer görsel bulunuyor.
-> Dördüncü görseli göstermek için her klasöre uygun `poster-4` dosyasını ekle.
+Şu anda `klasor-1`, `klasor-2` ve `klasor-3` içinde dörder görsel bulunur.
 
 `assets/posters/klasor-4/` eski yapıdan kalmıştır ve artık QR bağlantılarında
 kullanılmaz.

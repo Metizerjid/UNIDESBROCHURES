@@ -88,7 +88,7 @@ async function resolvePoster(page, slot, index) {
 
 async function loadPosters() {
   const page = getSelectedPage();
-  document.title = `${page.title} • The Poster Room`;
+  document.title = `${page.title} • IEEE SB × UNIDES`;
   elements.brand.href = `?afis=${page.id}`;
   const posters = await Promise.all(
     posterSlots.map((slot, index) => resolvePoster(page, slot, index)),
@@ -102,7 +102,7 @@ function buildDots() {
       const dot = document.createElement("button");
       dot.className = "poster-dot";
       dot.type = "button";
-      dot.textContent = `Show ${poster.title}`;
+      dot.textContent = `${poster.title} görselini göster`;
       dot.setAttribute("aria-current", String(index === state.index));
       dot.addEventListener("click", () => goToPoster(index));
       return dot;
@@ -132,14 +132,14 @@ function renderPoster(direction = "") {
   elements.frame.className = `poster-frame${direction ? ` is-${direction}` : ""}`;
   elements.image.classList.add("is-loading");
   elements.loading.hidden = false;
-  elements.loading.textContent = "Loading poster…";
+  elements.loading.textContent = "Görsel yükleniyor…";
   elements.title.textContent = poster.title;
   elements.counter.textContent = `${state.index + 1} / ${state.posters.length}`;
   elements.image.alt = poster.title;
   elements.image.onload = finishImageLoad;
   elements.image.onerror = () => {
     elements.loading.hidden = false;
-    elements.loading.textContent = "Poster image could not be loaded";
+    elements.loading.textContent = "Görsel yüklenemedi";
   };
   elements.image.src = poster.image;
 
@@ -209,7 +209,7 @@ async function initialize() {
   state.posters = await loadPosters();
 
   if (state.posters.length === 0) {
-    elements.loading.textContent = "No posters are available";
+    elements.loading.textContent = "Gösterilecek görsel bulunamadı";
     elements.counter.textContent = "0 / 0";
     return;
   }

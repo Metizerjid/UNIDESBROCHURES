@@ -1,33 +1,34 @@
 <!doctype html>
-<html lang="en">
+<html lang="tr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="A simple, full-screen poster gallery with swipe and arrow navigation."
+      content="IEEE SB × UNIDES sürdürülebilirlik görsel galerisi."
     />
-    <meta name="theme-color" content="#102838" />
-    <title>The Poster Room</title>
+    <meta name="theme-color" content="#073d32" />
+    <title>IEEE SB × UNIDES | Sürdürülebilirlik Galerisi</title>
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="styles.css" />
-    <script src="script.js?v=20261115-1" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20261115-1" />
+    <script src="script.js?v=20261115-2" defer></script>
   </head>
   <body>
-    <main class="viewer" aria-label="Poster gallery">
+    <main class="viewer" aria-label="Sürdürülebilirlik görsel galerisi">
       <header class="viewer-header">
-        <a class="brand" id="brand-link" href="?afis=1" aria-label="The Poster Room">
-          <span class="brand-mark" aria-hidden="true">P</span>
-          <span>
-            <strong>The Poster Room</strong>
-            <small>Swipe to explore</small>
+        <a class="brand" id="brand-link" href="?afis=1" aria-label="IEEE SB ve UNIDES galerisi">
+          <span class="brand-logo-shell">
+            <img
+              class="brand-logo"
+              src="assets/brand/kurum-logolari.png"
+              alt="Gençlik ve Spor Bakanlığı, UNIDES, IEEE ve İstanbul Medipol Üniversitesi logoları"
+            />
+          </span>
+          <span class="brand-copy">
+            <strong>IEEE SB <span aria-hidden="true">×</span> UNIDES</strong>
+            <small>Sürdürülebilir gelecek için</small>
           </span>
         </a>
-
-        <p class="mode-note">
-          <span aria-hidden="true"></span>
-          Fixed order
-        </p>
       </header>
 
       <section
@@ -35,9 +36,9 @@
         id="poster-stage"
         tabindex="0"
         aria-roledescription="carousel"
-        aria-label="Posters. Use the left and right arrow keys to browse."
+        aria-label="Görseller. Gezinmek için sol ve sağ ok tuşlarını kullanın."
       >
-        <button class="nav-button previous" type="button" aria-label="Show previous poster">
+        <button class="nav-button previous" type="button" aria-label="Önceki görseli göster">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="m15 18-6-6 6-6" />
           </svg>
@@ -46,14 +47,14 @@
         <figure class="poster-frame" aria-live="polite">
           <div class="poster-canvas">
             <img id="poster-image" alt="" draggable="false" />
-            <div class="loading-state" id="loading-state">Loading posters…</div>
+            <div class="loading-state" id="loading-state">Görseller yükleniyor…</div>
           </div>
           <figcaption class="poster-caption">
-            <span id="poster-title">Poster</span>
+            <span id="poster-title">Görsel</span>
           </figcaption>
         </figure>
 
-        <button class="nav-button next" type="button" aria-label="Show next poster">
+        <button class="nav-button next" type="button" aria-label="Sonraki görseli göster">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="m9 18 6-6-6-6" />
           </svg>
@@ -62,8 +63,8 @@
 
       <footer class="viewer-footer">
         <span class="poster-counter" id="poster-counter" aria-live="polite">— / —</span>
-        <div class="poster-dots" id="poster-dots" aria-label="Choose a poster"></div>
-        <span class="gesture-hint"><span aria-hidden="true">↔</span> Swipe or drag</span>
+        <div class="poster-dots" id="poster-dots" aria-label="Bir görsel seç"></div>
+        <span class="gesture-hint"><span aria-hidden="true">↔</span> Kaydır veya sürükle</span>
       </footer>
     </main>
   </body>

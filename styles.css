@@ -1,13 +1,16 @@
 :root {
-  --ink: #102838;
-  --paper: #fffaf0;
-  --coral: #ee6f57;
-  --coral-dark: #cb503a;
-  --mint: #9fd4cf;
-  --line: rgba(255, 255, 255, 0.16);
-  --muted: rgba(255, 255, 255, 0.62);
+  --forest-950: #052e27;
+  --forest-900: #073d32;
+  --forest-800: #115846;
+  --leaf: #55b879;
+  --leaf-bright: #98d977;
+  --sage: #cde3d2;
+  --aqua: #72cbb4;
+  --cream: #f5f2e7;
+  --line: rgba(205, 227, 210, 0.22);
+  --muted: rgba(229, 241, 232, 0.72);
+  --surface: rgba(5, 46, 39, 0.72);
   --sans: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-  --serif: Georgia, "Times New Roman", serif;
 }
 
 * {
@@ -25,9 +28,9 @@ body {
 body {
   color: #fff;
   background:
-    radial-gradient(circle at 12% 15%, rgba(238, 111, 87, 0.18), transparent 28rem),
-    radial-gradient(circle at 88% 80%, rgba(159, 212, 207, 0.12), transparent 32rem),
-    var(--ink);
+    radial-gradient(circle at 10% 10%, rgba(85, 184, 121, 0.24), transparent 28rem),
+    radial-gradient(circle at 90% 84%, rgba(114, 203, 180, 0.18), transparent 32rem),
+    linear-gradient(135deg, var(--forest-950), var(--forest-800) 58%, #07362f);
   font-family: var(--sans);
   -webkit-font-smoothing: antialiased;
 }
@@ -51,7 +54,7 @@ button {
 }
 
 :focus-visible {
-  outline: 3px solid var(--coral);
+  outline: 3px solid var(--leaf-bright);
   outline-offset: 4px;
 }
 
@@ -75,7 +78,7 @@ button {
 }
 
 .viewer-header {
-  min-height: 3.2rem;
+  min-height: 4.4rem;
   padding-bottom: clamp(0.55rem, 1.3vh, 1rem);
   border-bottom: 1px solid var(--line);
 }
@@ -83,22 +86,33 @@ button {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 0.72rem;
+  gap: clamp(0.7rem, 1.5vw, 1.25rem);
+  min-width: 0;
   color: #fff;
   text-decoration: none;
 }
 
-.brand-mark {
-  display: grid;
-  width: 2.45rem;
-  height: 2.45rem;
+.brand-logo-shell {
+  display: flex;
+  width: min(52vw, 34rem);
+  min-width: 16rem;
+  padding: 0.28rem 0.55rem;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid rgba(205, 227, 210, 0.7);
+  border-radius: 0.8rem;
+  box-shadow: 0 10px 30px rgba(2, 28, 23, 0.22);
+}
+
+.brand-logo {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.brand-copy {
   flex: 0 0 auto;
-  color: #fff;
-  background: var(--coral);
-  border-radius: 50% 50% 50% 12%;
-  font-family: var(--serif);
-  font-size: 1.3rem;
-  place-items: center;
 }
 
 .brand strong,
@@ -107,39 +121,25 @@ button {
 }
 
 .brand strong {
-  font-family: var(--serif);
-  font-size: 1.02rem;
-  font-weight: 500;
-  line-height: 1;
+  font-size: clamp(0.95rem, 1.45vw, 1.25rem);
+  font-weight: 800;
+  letter-spacing: 0.035em;
+  line-height: 1.05;
+  white-space: nowrap;
+}
+
+.brand strong span {
+  color: var(--leaf-bright);
 }
 
 .brand small {
   margin-top: 0.25rem;
   color: var(--muted);
-  font-size: 0.64rem;
+  font-size: 0.6rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.11em;
   text-transform: uppercase;
-}
-
-.mode-note {
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.66rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.mode-note > span {
-  width: 0.5rem;
-  height: 0.5rem;
-  background: var(--mint);
-  border-radius: 50%;
-  box-shadow: 0 0 0 4px rgba(159, 212, 207, 0.13);
+  white-space: nowrap;
 }
 
 .poster-stage {
@@ -151,6 +151,10 @@ button {
   min-width: 0;
   min-height: 0;
   overflow: hidden;
+  padding: clamp(0.35rem, 1vw, 0.75rem);
+  background: rgba(205, 227, 210, 0.045);
+  border: 1px solid rgba(205, 227, 210, 0.09);
+  border-radius: 1.25rem;
   cursor: grab;
   touch-action: pan-y;
   user-select: none;
@@ -187,7 +191,7 @@ button {
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 20px 35px rgba(0, 0, 0, 0.35));
+  filter: drop-shadow(0 22px 38px rgba(1, 25, 20, 0.42));
   transition: opacity 180ms ease;
 }
 
@@ -240,8 +244,8 @@ button {
   padding: 0.55rem 0.85rem;
   overflow: hidden;
   color: #fff;
-  background: rgba(16, 40, 56, 0.76);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: var(--surface);
+  border: 1px solid rgba(205, 227, 210, 0.24);
   border-radius: 999px;
   backdrop-filter: blur(12px);
   font-size: 0.7rem;
@@ -259,7 +263,7 @@ button {
   height: clamp(2.8rem, 4vw, 3.5rem);
   padding: 0;
   color: #fff;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(205, 227, 210, 0.08);
   border: 1px solid var(--line);
   border-radius: 50%;
   cursor: pointer;
@@ -268,8 +272,8 @@ button {
 }
 
 .nav-button:hover {
-  color: var(--ink);
-  background: var(--paper);
+  color: var(--forest-950);
+  background: var(--leaf-bright);
   transform: scale(1.04);
 }
 
@@ -305,7 +309,7 @@ button {
 
 .gesture-hint span {
   margin-right: 0.3rem;
-  color: var(--mint);
+  color: var(--aqua);
   font-size: 0.9rem;
 }
 
@@ -322,7 +326,7 @@ button {
   height: 0.45rem;
   padding: 0;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(205, 227, 210, 0.32);
   border: 0;
   border-radius: 999px;
   cursor: pointer;
@@ -332,7 +336,8 @@ button {
 
 .poster-dot[aria-current="true"] {
   width: 1.75rem;
-  background: var(--coral);
+  background: var(--leaf-bright);
+  box-shadow: 0 0 0 3px rgba(152, 217, 119, 0.12);
 }
 
 @media (max-width: 680px) {
@@ -342,22 +347,27 @@ button {
   }
 
   .viewer-header {
-    min-height: 2.85rem;
+    min-height: 3.5rem;
     padding-bottom: 0.5rem;
   }
 
-  .brand-mark {
-    width: 2.1rem;
-    height: 2.1rem;
-    font-size: 1.05rem;
+  .brand {
+    width: 100%;
+    gap: 0.55rem;
+  }
+
+  .brand-logo-shell {
+    width: min(58vw, 14rem);
+    min-width: 0;
+    padding: 0.18rem 0.3rem;
+    border-radius: 0.55rem;
   }
 
   .brand strong {
-    font-size: 0.92rem;
+    font-size: clamp(0.72rem, 3.2vw, 0.9rem);
   }
 
-  .brand small,
-  .mode-note {
+  .brand small {
     display: none;
   }
 
@@ -376,14 +386,14 @@ button {
     z-index: 3;
     width: 2.55rem;
     height: 2.55rem;
-    background: rgba(16, 40, 56, 0.78);
+    background: rgba(5, 46, 39, 0.84);
     backdrop-filter: blur(10px);
     transform: translateY(-50%);
   }
 
   .nav-button:hover {
     color: #fff;
-    background: rgba(238, 111, 87, 0.92);
+    background: rgba(85, 184, 121, 0.94);
     transform: translateY(-50%);
   }
 
@@ -431,17 +441,16 @@ button {
   }
 
   .viewer-header {
-    min-height: 2.3rem;
+    min-height: 2.8rem;
     padding-bottom: 0.3rem;
   }
 
-  .brand-mark {
-    width: 1.9rem;
-    height: 1.9rem;
+  .brand-logo-shell {
+    width: 12rem;
+    padding-block: 0.12rem;
   }
 
   .brand small,
-  .mode-note,
   .gesture-hint {
     display: none;
   }
