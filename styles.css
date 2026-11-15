@@ -100,18 +100,6 @@ button {
   object-fit: contain;
 }
 
-.brand-name {
-  flex: 0 0 auto;
-  font-size: clamp(0.78rem, 1.35vw, 1rem);
-  font-weight: 700;
-  letter-spacing: 0.035em;
-  white-space: nowrap;
-}
-
-.brand-name span {
-  color: var(--yaprak);
-}
-
 .etiket {
   display: inline-block;
   flex: 0 0 auto;
@@ -205,7 +193,7 @@ h1 {
 
 .poster-media {
   position: absolute;
-  inset: clamp(0.4rem, 1.1vh, 0.75rem) clamp(0.4rem, 1vw, 0.75rem) clamp(2.8rem, 6vh, 3.6rem);
+  inset: clamp(0.4rem, 1.1vh, 0.75rem) clamp(0.4rem, 1vw, 0.75rem);
   min-width: 0;
   min-height: 0;
 }
@@ -262,34 +250,6 @@ h1 {
 
 .loading-state[hidden] {
   display: none;
-}
-
-.poster-caption {
-  position: absolute;
-  inset: auto 0 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.65rem;
-  min-height: 2.65rem;
-  padding: 0.65rem 1rem;
-  color: var(--krem-acik);
-  background: linear-gradient(to top, rgba(20, 43, 29, 0.96), rgba(31, 61, 43, 0.9));
-  font-size: 0.76rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
-.caption-divider {
-  width: 0.25rem;
-  height: 0.25rem;
-  background: var(--yaprak-acik);
-  border-radius: 50%;
-}
-
-.poster-counter {
-  color: var(--yaprak-acik);
 }
 
 .nav-button {
@@ -395,10 +355,6 @@ h1 {
     border-radius: 0.45rem;
   }
 
-  .brand-name {
-    display: none;
-  }
-
   .etiket {
     padding: 0.22rem 0.55rem;
     font-size: 0.55rem;
@@ -466,11 +422,6 @@ h1 {
 
   .nav-button.next {
     right: 0.55rem;
-  }
-
-  .poster-caption {
-    min-height: 2.45rem;
-    font-size: 0.66rem;
   }
 
   .poster-dot {

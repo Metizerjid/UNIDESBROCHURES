@@ -28,8 +28,6 @@ const elements = {
   stage: document.querySelector("#poster-stage"),
   frame: document.querySelector(".poster-frame"),
   image: document.querySelector("#poster-image"),
-  title: document.querySelector("#poster-title"),
-  counter: document.querySelector("#poster-counter"),
   dots: document.querySelector("#poster-dots"),
   loading: document.querySelector("#loading-state"),
   previous: document.querySelector(".previous"),
@@ -88,7 +86,7 @@ async function resolvePoster(page, slot, index) {
 
 async function loadPosters() {
   const page = getSelectedPage();
-  document.title = `${page.title} • IEEE SB × UNIDES`;
+  document.title = "Sürdürülebilirlik Galerisi";
   elements.brand.href = `?afis=${page.id}`;
   const posters = await Promise.all(
     posterSlots.map((slot, index) => resolvePoster(page, slot, index)),
@@ -134,8 +132,6 @@ function renderPoster(direction = "") {
   elements.image.classList.add("is-loading");
   elements.loading.hidden = false;
   elements.loading.textContent = "Görsel yükleniyor…";
-  elements.title.textContent = poster.title;
-  elements.counter.textContent = `${state.index + 1} / ${state.posters.length}`;
   elements.image.alt = poster.title;
   elements.image.onload = finishImageLoad;
   elements.image.onerror = () => {
@@ -211,7 +207,6 @@ async function initialize() {
 
   if (state.posters.length === 0) {
     elements.loading.textContent = "Gösterilecek görsel bulunamadı";
-    elements.counter.textContent = "0 / 0";
     return;
   }
 
