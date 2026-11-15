@@ -1,8 +1,12 @@
-# The Poster Room — 3 QR Yapısı
+# IEEE SB × UNIDES — Sürdürülebilirlik Galerisi
 
 Site artık üç farklı QR bağlantısıyla çalışır. Her bağlantı yalnızca kendisine
 ait klasördeki görselleri, mevcut sağa-sola kaydırmalı carousel içinde gösterir.
 Rastgele seçim tamamen kaldırılmıştır.
+
+Arayüz, krem ve orman yeşili renkleri kullanan sürdürülebilirlik temalı bir
+tasarıma sahiptir. Üst bölümde kurum logoları, ortada kaydırılabilir görseller,
+altında numaralı gezinme düğmeleri bulunur.
 
 ## QR kodlarında kullanılacak bağlantılar
 

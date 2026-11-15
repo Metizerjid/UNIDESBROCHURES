@@ -7,32 +7,44 @@
       name="description"
       content="IEEE SB × UNIDES sürdürülebilirlik görsel galerisi."
     />
-    <meta name="theme-color" content="#073d32" />
+    <meta name="theme-color" content="#1f3d2b" />
     <title>IEEE SB × UNIDES | Sürdürülebilirlik Galerisi</title>
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="styles.css?v=20261115-1" />
-    <script src="script.js?v=20261115-2" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20261115-2" />
+    <script src="script.js?v=20261115-3" defer></script>
   </head>
   <body>
-    <main class="viewer" aria-label="Sürdürülebilirlik görsel galerisi">
-      <header class="viewer-header">
-        <a class="brand" id="brand-link" href="?afis=1" aria-label="IEEE SB ve UNIDES galerisi">
-          <span class="brand-logo-shell">
-            <img
-              class="brand-logo"
-              src="assets/brand/kurum-logolari.png"
-              alt="Gençlik ve Spor Bakanlığı, UNIDES, IEEE ve İstanbul Medipol Üniversitesi logoları"
-            />
-          </span>
-          <span class="brand-copy">
-            <strong>IEEE SB <span aria-hidden="true">×</span> UNIDES</strong>
-            <small>Sürdürülebilir gelecek için</small>
-          </span>
-        </a>
-      </header>
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand-row">
+          <a
+            class="brand"
+            id="brand-link"
+            href="?afis=1"
+            aria-label="IEEE SB ve UNIDES sürdürülebilirlik galerisi"
+          >
+            <span class="brand-logo-shell">
+              <img
+                class="brand-logo"
+                src="assets/brand/kurum-logolari.png"
+                alt="Gençlik ve Spor Bakanlığı, UNIDES, IEEE ve İstanbul Medipol Üniversitesi logoları"
+              />
+            </span>
+            <span class="brand-name">IEEE SB <span aria-hidden="true">×</span> UNIDES</span>
+          </a>
+          <span class="etiket">Sürdürülebilirlik</span>
+        </div>
 
+        <div class="hero-copy">
+          <h1>Doğayı Koru, Geleceği Yeşert</h1>
+          <p>Gezegenimizin geleceği için hazırlanan çalışmaları keşfet.</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="gallery" aria-label="Sürdürülebilirlik görsel galerisi">
       <section
-        class="poster-stage"
+        class="slider"
         id="poster-stage"
         tabindex="0"
         aria-roledescription="carousel"
@@ -46,11 +58,15 @@
 
         <figure class="poster-frame" aria-live="polite">
           <div class="poster-canvas">
-            <img id="poster-image" alt="" draggable="false" />
+            <div class="poster-media">
+              <img id="poster-image" alt="" draggable="false" />
+            </div>
             <div class="loading-state" id="loading-state">Görseller yükleniyor…</div>
           </div>
           <figcaption class="poster-caption">
             <span id="poster-title">Görsel</span>
+            <span class="caption-divider" aria-hidden="true"></span>
+            <span class="poster-counter" id="poster-counter" aria-live="polite">— / —</span>
           </figcaption>
         </figure>
 
@@ -61,11 +77,12 @@
         </button>
       </section>
 
-      <footer class="viewer-footer">
-        <span class="poster-counter" id="poster-counter" aria-live="polite">— / —</span>
-        <div class="poster-dots" id="poster-dots" aria-label="Bir görsel seç"></div>
-        <span class="gesture-hint"><span aria-hidden="true">↔</span> Kaydır veya sürükle</span>
-      </footer>
+      <nav class="noktalar" id="poster-dots" aria-label="Görsel seçimi"></nav>
+      <p class="ipucu"><span aria-hidden="true">↔</span> Görseller arasında geçiş için kaydır, sürükle veya numaralara dokun.</p>
     </main>
+
+    <footer class="site-footer">
+      <p>&copy; 2026 IEEE SB × UNIDES <span aria-hidden="true">·</span> Daha yeşil bir dünya için</p>
+    </footer>
   </body>
 </html>

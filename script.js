@@ -5,13 +5,13 @@ const posterPages = [
     id: "1",
     title: "Afiş 1",
     path: "assets/posters/klasor-1",
-    extensions: ["jpg", "jpeg", "png", "webp", "svg"],
+    extensions: ["svg", "jpg", "jpeg", "png", "webp"],
   },
   {
     id: "2",
     title: "Afiş 2",
     path: "assets/posters/klasor-2",
-    extensions: ["jpg", "jpeg", "png", "webp", "svg"],
+    extensions: ["svg", "jpg", "jpeg", "png", "webp"],
   },
   {
     id: "3",
@@ -102,7 +102,8 @@ function buildDots() {
       const dot = document.createElement("button");
       dot.className = "poster-dot";
       dot.type = "button";
-      dot.textContent = `${poster.title} görselini göster`;
+      dot.textContent = String(index + 1);
+      dot.setAttribute("aria-label", `${poster.title} görselini göster`);
       dot.setAttribute("aria-current", String(index === state.index));
       dot.addEventListener("click", () => goToPoster(index));
       return dot;
