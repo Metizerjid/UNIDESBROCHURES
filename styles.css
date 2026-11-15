@@ -82,10 +82,12 @@ button {
 }
 
 .brand-logo-shell {
+  position: relative;
   display: flex;
   width: min(41vw, 25rem);
   min-width: 14rem;
-  padding: 0.2rem 0.4rem;
+  aspect-ratio: 1525 / 147;
+  padding: 0;
   overflow: hidden;
   background: #fff;
   border: 1px solid rgba(31, 61, 43, 0.14);
@@ -94,10 +96,13 @@ button {
 }
 
 .brand-logo {
+  position: absolute;
+  top: 50%;
+  left: 0;
   display: block;
   width: 100%;
   height: auto;
-  object-fit: contain;
+  transform: translateY(-50%);
 }
 
 .etiket {
@@ -351,7 +356,7 @@ h1 {
   .brand-logo-shell {
     width: min(53vw, 13rem);
     min-width: 0;
-    padding: 0.12rem 0.22rem;
+    padding: 0;
     border-radius: 0.45rem;
   }
 
@@ -447,7 +452,7 @@ h1 {
 
   .brand-logo-shell {
     width: min(35vw, 17rem);
-    padding-block: 0.1rem;
+    padding: 0;
   }
 
   .etiket {
